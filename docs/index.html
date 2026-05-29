@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity IDE — AI Developer Portfolio</title>
+  <meta name="description" content="Claude CodeのSubAgents・Skills・Commandsを組み合わせてゲーム・記事・開発ツールを高速生成するAI開発者のポートフォリオ">
+  <meta property="og:title" content="Antigravity IDE — AI Developer Portfolio">
+  <meta property="og:description" content="AIでアイデアをプロダクトに変える">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Color: Base */
+      --color-bg:            #ffffff;
+      --color-bg-alt:        #f7f7f7;
+      --color-text:          #000000;
+      --color-text-muted:    #888888;
+
+      /* Color: Accent */
+      --color-accent:        #79b661;
+      --color-accent-hover:  #5a9e47;
+
+      /* Color: Secondary */
+      --color-blue:          #5ab8e4;
+      --color-blue-hover:    #88c9e7;
+      --color-yellow:        #eddf47;
+      --color-orange-red:    #e45539;
+      --color-orange-red-hover: #c83e26;
+      --color-teal:          #58c190;
+
+      /* Gradient */
+      --gradient-hero: linear-gradient(131deg, rgb(245, 232, 90) 0%, rgb(121, 182, 97) 100%);
+
+      /* Shadow */
+      --shadow-subtle:    5px 8.66px 20px 0px rgba(0, 0, 0, 0.07);
+      --shadow-medium:    7.5px 12.99px 30px 0px rgba(0, 0, 0, 0.20);
+      --shadow-warm-glow: 5px 8.66px 120px 0px rgba(255, 182, 143, 0.25);
+
+      /* Typography: Font Family */
+      --font-heading: 'Jost', 'futura-pt', sans-serif;
+      --font-body:    'Noto Sans JP', "游ゴシック体", "Yu Gothic", YuGothic,
+                      "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",
+                      "Meiryo", "メイリオ", sans-serif;
+      --font-label:   'Jost', 'Boston', sans-serif;
+
+      /* Typography: Scale (1rem = 10px) */
+      --font-xs:   1.2rem;
+      --font-sm:   1.4rem;
+      --font-base: 1.6rem;
+      --font-md:   1.8rem;
+      --font-lg:   2.4rem;
+      --font-xl:   3.2rem;
+      --font-xxl:  4.8rem;
+      --font-hero: 7.2rem;
+
+      /* Typography: Weight / Spacing / Line-height */
+      --weight-light:   300;
+      --weight-regular: 400;
+      --weight-medium:  500;
+      --weight-bold:    700;
+
+      --ls-japanese: 0.05em;
+      --ls-latin:    0.00em;
+      --ls-caps:     0.15em;
+
+      --lh-tight:  1.0;
+      --lh-normal: 1.5;
+      --lh-body:   1.8;
+      --lh-loose:  2.0;
+
+      /* Spacing / Layout */
+      --container-wide:    1200px;
+      --container-content: 1120px;
+      --container-text:    800px;
+      --container-narrow:  720px;
+
+      --section-padding-desktop: 100px 0;
+      --section-padding-mobile:  8vw 0;
+      --wrapper-padding-desktop: 0 60px;
+      --wrapper-padding-mobile:  0 6.25vw;
+      --grid-gap: 40px;
+
+      /* Border Radius */
+      --radius-card:    10px;
+      --radius-section: 20px;
+      --radius-pill:    2em;
+      --radius-gallery: 8px;
+
+      /* Animation / Easing */
+      --ease-quick:  all ease-out 0.2s;
+      --ease-smooth: all cubic-bezier(0.19, 1, 0.22, 1) 1.6s;
+      --ease-load:   cubic-bezier(0.230, 1.000, 0.320, 1.000) 1.2s;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { font-size: 10px; scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: var(--font-base);
+      line-height: var(--lh-body);
+      letter-spacing: var(--ls-japanese);
+      color: var(--color-text);
+      background: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    .container {
+      max-width: var(--container-wide);
+      margin: 0 auto;
+      padding: var(--wrapper-padding-desktop);
+    }
+
+    .section { padding: var(--section-padding-desktop); }
+    .section--alt { background: var(--color-bg-alt); }
+
+    /* ---------- Headings ---------- */
+    .section-label {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-size: var(--font-sm);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin: 0 0 12px;
+    }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: var(--font-xxl);
+      font-weight: var(--weight-bold);
+      line-height: var(--lh-tight);
+      letter-spacing: var(--ls-latin);
+      margin: 0 0 16px;
+    }
+    .section-lead {
+      max-width: var(--container-text);
+      font-size: var(--font-md);
+      color: var(--color-text-muted);
+      margin: 0 0 48px;
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-block;
+      min-width: 200px;
+      padding: 1.0em 2em;
+      background: var(--color-blue);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-heading);
+      font-weight: var(--weight-bold);
+      font-size: 1.7rem;
+      letter-spacing: var(--ls-japanese);
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--ease-quick);
+    }
+    .btn:hover { background: var(--color-blue-hover); opacity: 0.85; }
+    .btn--primary { background: var(--color-accent); }
+    .btn--primary:hover { background: var(--color-accent-hover); opacity: 1; }
+    .btn--secondary {
+      background: transparent;
+      color: #ffffff;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+    }
+    .btn--secondary:hover { background: rgba(255, 255, 255, 0.15); opacity: 1; }
+    .btn--action { background: var(--color-orange-red); }
+    .btn--action:hover { background: var(--color-orange-red-hover); opacity: 1; }
+
+    /* ---------- Badge ---------- */
+    .badge {
+      display: inline-block;
+      padding: 0.4em 1.2em;
+      border-radius: var(--radius-pill);
+      background: var(--gradient-hero);
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
+      font-size: var(--font-xs);
+    }
+
+    /* ---------- Divider ---------- */
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      margin: 0;
+    }
+
+    /* ---------- NAV ---------- */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: transparent;
+      transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
+    }
+    .nav__logo {
+      font-family: var(--font-heading);
+      font-size: var(--font-lg);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--ls-latin);
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.4s ease;
+    }
+    .nav__logo span { color: var(--color-accent); }
+    .nav__menu {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      margin: 0; padding: 0;
+    }
+    .nav__menu a {
+      font-family: var(--font-heading);
+      font-size: var(--font-sm);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.2s ease, opacity 0.2s ease;
+    }
+    .nav__menu a:hover { opacity: 0.7; }
+    .nav.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+      backdrop-filter: blur(8px);
+      padding: 14px 60px;
+    }
+    .nav.scrolled .nav__logo { color: var(--color-text); }
+    .nav.scrolled .nav__logo span { color: var(--color-accent); }
+    .nav.scrolled .nav__menu a { color: var(--color-text); }
+    .nav.scrolled .nav__menu a:hover { color: var(--color-accent); opacity: 1; }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: var(--gradient-hero);
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -30%; right: -10%;
+      width: 60vw; height: 60vw;
+      background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 70%);
+      pointer-events: none;
+    }
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: var(--container-wide);
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+    .hero__badge { margin-bottom: 28px; background: rgba(255,255,255,0.9); color: var(--color-accent-hover); }
+    .hero__title {
+      font-family: var(--font-heading);
+      font-size: var(--font-hero);
+      font-weight: var(--weight-bold);
+      line-height: 1.05;
+      letter-spacing: var(--ls-latin);
+      color: #ffffff;
+      margin: 0 0 24px;
+      max-width: 14ch;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .hero__sub {
+      font-size: var(--font-md);
+      color: rgba(255, 255, 255, 0.92);
+      max-width: 52ch;
+      margin: 0 0 40px;
+      line-height: var(--lh-body);
+    }
+    .hero__actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    /* ---------- WORKS ---------- */
+    .filters {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .filter-btn {
+      padding: 0.6em 1.6em;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: var(--color-bg);
+      border-radius: var(--radius-pill);
+      font-family: var(--font-heading);
+      font-size: var(--font-sm);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--ls-japanese);
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: var(--ease-quick);
+    }
+    .filter-btn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+    .filter-btn.is-active {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #ffffff;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--grid-gap);
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--color-bg);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-subtle);
+      overflow: hidden;
+      transition: var(--ease-quick);
+    }
+    .card:hover { box-shadow: var(--shadow-medium); transform: translateY(-4px); }
+    .card__thumb {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: var(--color-bg-alt);
+    }
+    .card__body { padding: 28px 28px 32px; display: flex; flex-direction: column; flex: 1; }
+    .card__cat {
+      font-family: var(--font-heading);
+      font-size: var(--font-xs);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin: 0 0 8px;
+    }
+    .card__title {
+      font-size: var(--font-md);
+      font-weight: var(--weight-bold);
+      line-height: var(--lh-normal);
+      margin: 0 0 12px;
+    }
+    .card__desc {
+      font-size: var(--font-sm);
+      color: var(--color-text-muted);
+      line-height: var(--lh-body);
+      margin: 0;
+    }
+    .card.is-hidden { display: none; }
+
+    /* ---------- SKILLS ---------- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .skill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 24px;
+      background: var(--color-bg);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-subtle);
+      transition: var(--ease-quick);
+    }
+    .skill:hover { transform: translateY(-4px); box-shadow: var(--shadow-medium); }
+    .skill__name {
+      font-family: var(--font-heading);
+      font-size: var(--font-base);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--ls-latin);
+    }
+    .skill__dots { display: flex; gap: 5px; }
+    .skill__dots i {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.12);
+      display: inline-block;
+    }
+    .skill__dots i.on { background: var(--color-accent); }
+
+    /* ---------- ABOUT ---------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .about__profile {
+      font-size: var(--font-lg);
+      font-weight: var(--weight-medium);
+      line-height: var(--lh-normal);
+    }
+    .about__profile strong { color: var(--color-accent); }
+    .about__text p { margin: 0 0 20px; }
+    .about__text p:last-child { margin-bottom: 0; }
+    .about__list {
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .about__list li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+      font-size: var(--font-base);
+    }
+    .about__list li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.7em;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--gradient-hero);
+    }
+
+    /* ---------- CONTACT ---------- */
+    .contact-box {
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-section);
+      padding: 72px 80px;
+      text-align: center;
+    }
+    .contact-box .section-title { font-size: var(--font-xl); }
+    .contact-box p { color: var(--color-text-muted); font-size: var(--font-md); margin: 0 0 40px; }
+    .contact-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.9em 1.8em;
+      background: var(--color-bg);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-subtle);
+      font-family: var(--font-heading);
+      font-size: var(--font-base);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--ls-japanese);
+      text-decoration: none;
+      color: var(--color-text);
+      transition: var(--ease-quick);
+    }
+    .contact-link:hover { transform: translateY(-3px); box-shadow: var(--shadow-medium); color: var(--color-accent); }
+    .contact-link svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+      padding: 40px 60px;
+      text-align: center;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .footer p {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-size: var(--font-sm);
+      letter-spacing: var(--ls-caps);
+      color: var(--color-text-muted);
+    }
+
+    /* ---------- Scroll reveal ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 599px) {
+      .nav { padding: 16px 6.25vw; }
+      .nav.scrolled { padding: 12px 6.25vw; }
+      .nav__menu { display: none; }
+      .container { padding: var(--wrapper-padding-mobile); }
+      .section { padding: var(--section-padding-mobile); }
+      .hero__inner { padding: 0 6.25vw; }
+      .hero__title { font-size: 4.4rem; }
+      .hero__sub { font-size: var(--font-base); }
+      .hero__actions { flex-direction: column; }
+      .hero__actions .btn { width: 100%; }
+      .section-title { font-size: var(--font-xl); }
+      .cards { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-box { padding: 48px 6.25vw; }
+      .footer { padding: 32px 6.25vw; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav" id="nav">
+    <a href="#hero" class="nav__logo">Antigravity<span>.</span>IDE</a>
+    <nav>
+      <ul class="nav__menu">
+        <li><a href="#works">Works</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero__inner">
+      <span class="badge hero__badge">AI Developer Portfolio</span>
+      <h1 class="hero__title">AIで、アイデアをプロダクトに変える。</h1>
+      <p class="hero__sub">
+        Claude Code をベースにした Antigravity IDE で、ゲーム・SEO記事・開発ツールを高速生成。
+        SubAgents・Skills・Commands を組み合わせ、発想からリリースまでを一気通貫で実現します。
+      </p>
+      <div class="hero__actions">
+        <a href="#works" class="btn btn--primary">実績を見る</a>
+        <a href="#contact" class="btn btn--secondary">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WORKS ===== -->
+  <section class="section" id="works">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-label">Works</span>
+        <h2 class="section-title">制作実績</h2>
+        <p class="section-lead">AIを活用して制作したゲーム・開発環境・コンテンツの一部を紹介します。</p>
+      </div>
+
+      <div class="filters reveal">
+        <button class="filter-btn is-active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="game">Game</button>
+        <button class="filter-btn" data-filter="tool">Tool</button>
+        <button class="filter-btn" data-filter="content">Content</button>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal" data-category="game">
+          <img class="card__thumb" src="images/image-1780011618012.png" alt="ぷよぷよ風 落ち物パズルゲームのプレイ画面">
+          <div class="card__body">
+            <p class="card__cat">Game</p>
+            <h3 class="card__title">ぷよぷよ風 落ち物パズルゲーム</h3>
+            <p class="card__desc">HTML/JavaScript で実装した連鎖型パズルゲーム。スコア・レベル・NEXT表示、キーボード操作（移動・回転・落下・一気落とし）に対応したブラウザ完結のクライアントサイドゲーム。</p>
+          </div>
+        </article>
+
+        <article class="card reveal" data-category="tool">
+          <img class="card__thumb" src="images/image-1780011671926.png" alt="AI支援開発環境 Antigravity IDE の操作画面">
+          <div class="card__body">
+            <p class="card__cat">Tool</p>
+            <h3 class="card__title">AI支援開発環境 Antigravity IDE</h3>
+            <p class="card__desc">Claude Code をベースにカスタム Skills / SubAgents / Commands を組み込んだAI支援開発環境。チャットからのドキュメント自動生成やコード支援をワンストップで実現。</p>
+          </div>
+        </article>
+
+        <article class="card reveal" data-category="content">
+          <img class="card__thumb" src="images/article.png" alt="不動産×テクノロジーをテーマにしたSEO記事">
+          <div class="card__body">
+            <p class="card__cat">Content</p>
+            <h3 class="card__title">SEO記事制作（不動産×テクノロジー）</h3>
+            <p class="card__desc">「不動産業界の進化が止まらない」をテーマにした構造化SEO記事。リード文・H2見出し・まとめで構成し、検索意図に沿った網羅的なコンテンツを生成。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section class="section section--alt" id="skills">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-label">Skills</span>
+        <h2 class="section-title">使用技術</h2>
+        <p class="section-lead">AI開発を支える言語・ツール・基盤技術のスタックです。</p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill reveal"><span class="skill__name">Claude Code</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+        <div class="skill reveal"><span class="skill__name">JavaScript</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+        <div class="skill reveal"><span class="skill__name">HTML / CSS</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+        <div class="skill reveal"><span class="skill__name">Python</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i></i></span></div>
+        <div class="skill reveal"><span class="skill__name">Rust</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i></i></span></div>
+        <div class="skill reveal"><span class="skill__name">Node.js</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i></i></span></div>
+        <div class="skill reveal"><span class="skill__name">Git / GitHub</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+        <div class="skill reveal"><span class="skill__name">Docker</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i></i></span></div>
+        <div class="skill reveal"><span class="skill__name">SQL / DB設計</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i></i></span></div>
+        <div class="skill reveal"><span class="skill__name">REST API</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i></i></span></div>
+        <div class="skill reveal"><span class="skill__name">SEO / Writing</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+        <div class="skill reveal"><span class="skill__name">Prompt Engineering</span><span class="skill__dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="reveal">
+          <span class="section-label">About</span>
+          <h2 class="section-title">プロフィール</h2>
+          <p class="about__profile">アイデアを、<strong>動くプロダクト</strong>に。<br>AIと共に作るデベロッパーです。</p>
+          <ul class="about__list">
+            <li>得意なこと：ゲーム・開発ツール・SEOコンテンツの高速プロトタイピング</li>
+            <li>好きな言語：JavaScript と Rust</li>
+            <li>学習中：実践的な Rust とAI開発ワークフローの自動化</li>
+          </ul>
+        </div>
+        <div class="about__text reveal">
+          <p>
+            <strong>Claude Code × AI開発</strong>を中核に据え、Antigravity IDE という独自の開発環境を構築しています。
+            カスタム Skills・SubAgents・Commands を組み合わせることで、定型作業を自動化し、創造的な部分に集中できる環境を整えています。
+          </p>
+          <p>
+            ブラウザゲームのようなインタラクティブな実装から、検索意図に沿った構造化SEO記事の生成、
+            開発を支援するツールまで——分野を横断して「AIで素早く形にする」ことを得意としています。
+          </p>
+          <p>
+            技術は手段。最終的に価値を届けるプロダクトを、スピードと品質の両立で生み出すことを目指しています。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section section--alt" id="contact">
+    <div class="container">
+      <div class="contact-box reveal">
+        <span class="section-label">Contact</span>
+        <h2 class="section-title">お気軽にご連絡ください</h2>
+        <p>制作のご依頼・ご相談はこちらから。各SNS・メールでお待ちしています。</p>
+        <div class="contact-links">
+          <a class="contact-link" href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            X / Twitter
+          </a>
+          <a class="contact-link" href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.1 3.29 9.41 7.86 10.94.58.11.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.79 1.08.79 2.18v3.23c0 .31.21.68.8.56A11.52 11.52 0 0 0 23.5 12C23.5 5.74 18.27.5 12 .5z"/></svg>
+            GitHub
+          </a>
+          <a class="contact-link" href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            LinkedIn
+          </a>
+          <a class="contact-link" href="mailto:sugurunpa@hotmail.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0-8 5-8-5zm0 12H4V8l8 5 8-5z"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>&copy; 2026 Antigravity IDE — AI Developer Portfolio</p>
+  </footer>
+
+  <script>
+    // ヘッダー: scrollY > 40 で .scrolled クラス付与
+    (function () {
+      var nav = document.getElementById('nav');
+      function onScroll() {
+        if (window.scrollY > 40) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // スクロールフェードイン
+    (function () {
+      var targets = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        targets.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      targets.forEach(function (el) { io.observe(el); });
+    })();
+
+    // Worksカテゴリフィルター
+    (function () {
+      var buttons = document.querySelectorAll('.filter-btn');
+      var cards = document.querySelectorAll('.cards .card');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          buttons.forEach(function (b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          var filter = btn.getAttribute('data-filter');
+          cards.forEach(function (card) {
+            var match = filter === 'all' || card.getAttribute('data-category') === filter;
+            card.classList.toggle('is-hidden', !match);
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

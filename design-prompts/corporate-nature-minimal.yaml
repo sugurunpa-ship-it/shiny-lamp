@@ -1,0 +1,357 @@
+# ============================================================
+#  Design Prompt: Corporate Nature Minimal
+#  Source abstracted from: links-g.com/company/
+#  Reusable for: Corporate, consulting, real estate,
+#                sustainability, professional services, etc.
+# ============================================================
+
+meta:
+  name: corporate-nature-minimal
+  version: "1.0"
+  description: >
+    自然・信頼・誠実さを軸にしたコーポレートミニマルデザイン。
+    有機的なグリーンアクセントと清潔なホワイトベースで
+    プロフェッショナルかつ温かみのある印象を与える。
+
+# ------------------------------------------------------------
+#  COLOR PALETTE
+# ------------------------------------------------------------
+colors:
+
+  # ベースカラー
+  base:
+    background:   "#ffffff"      # 基本背景：純白
+    background_alt: "#f7f7f7"   # セクション交互背景：極薄グレー
+    text_primary:  "#000000"    # 本文・見出し：ブラック
+    text_muted:    "#888888"    # サブテキスト・キャプション
+
+  # アクセントカラー（メイン）
+  accent:
+    primary:   "#79b661"        # 自然グリーン：CTA・リンク・強調
+    primary_hover: "#5a9e47"    # グリーン hover（10〜15% 暗く）
+
+  # アクセントカラー（サブ）
+  secondary:
+    blue:      "#5ab8e4"        # スカイブルー：ボタン・バッジ
+    blue_hover: "#88c9e7"       # ブルー hover（明るく）
+    yellow:    "#eddf47"        # 明るい黄色：ハイライト・ラベル
+    orange_red: "#e45539"       # アクション強調（送信・警告）
+    teal:      "#58c190"        # CSR・環境系アクセント
+
+  # グラデーション
+  gradients:
+    hero_diagonal:
+      type: linear
+      angle: 131deg
+      stops:
+        - color: "rgb(245, 232, 90)"   # 黄色（開始）
+          position: "0%"
+        - color: "rgb(121, 182, 97)"   # グリーン（終了）
+          position: "100%"
+      usage: "ヒーローテキストオーバーレイ・バッジ背景・装飾要素"
+
+  # シャドウ
+  shadows:
+    subtle:    "5px 8.66px 20px 0px rgba(0, 0, 0, 0.07)"
+    medium:    "7.5px 12.99px 30px 0px rgba(0, 0, 0, 0.20)"
+    warm_glow: "5px 8.66px 120px 0px rgba(255, 182, 143, 0.25)"
+
+
+# ------------------------------------------------------------
+#  TYPOGRAPHY
+# ------------------------------------------------------------
+typography:
+
+  # フォントファミリー
+  fonts:
+    heading_latin: "'futura-pt', sans-serif"    # 英文見出し：幾何学的サンセリフ
+    body_japanese: >
+      'Noto Sans JP', "游ゴシック体", "Yu Gothic", YuGothic,
+      "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",
+      "Meiryo", "メイリオ", sans-serif
+    accent_label: "'Boston', sans-serif"        # メタ情報・ラベル用
+
+  # ベースサイズ（1rem = 10px で計算）
+  base_size: "10px"
+
+  # スケール（rem 単位）
+  scale:
+    xs:   "1.2rem"    # 12px：キャプション・注記
+    sm:   "1.4rem"    # 14px：補足・メタ情報
+    base: "1.6rem"    # 16px：本文
+    md:   "1.8rem"    # 18px：リード文
+    lg:   "2.4rem"    # 24px：小見出し
+    xl:   "3.2rem"    # 32px：中見出し
+    xxl:  "4.8rem"    # 48px：大見出し
+    hero: "7.2rem"    # 72px：ヒーロータイトル
+
+  # スペーシング
+  letter_spacing:
+    japanese: "0.05em"    # 日本語：少し広め
+    latin:    "0.00em"    # 英字：詰めて品よく
+    caps:     "0.15em"    # 全大文字ラベル：広め
+
+  line_height:
+    tight:  1.0    # タイトル・ヒーロー
+    normal: 1.5    # フォーム・コンパクト
+    body:   1.8    # 本文標準
+    loose:  2.0    # 見出し・ゆったり読ませる
+
+  # ウェイト
+  weights:
+    light:   300
+    regular: 400
+    medium:  500
+    bold:    700
+
+
+# ------------------------------------------------------------
+#  LAYOUT
+# ------------------------------------------------------------
+layout:
+
+  # コンテナ幅
+  containers:
+    full:    "100%"
+    wide:    "1200px"    # 標準最大幅
+    content: "1120px"
+    text:    "800px"     # 長文テキスト向け
+    narrow:  "720px"
+
+  # セクション余白
+  section_padding:
+    desktop: "100px 0"
+    mobile:  "8vw 0"
+
+  # ラッパー内パディング
+  wrapper_padding:
+    desktop: "0 60px"
+    mobile:  "0 6.25vw"
+
+  # ヘッダー
+  header:
+    position: "fixed"
+    height_mobile: "60px"
+    padding_desktop: "50px 60px"
+    padding_mobile:  "0 15px"
+    background_initial: "transparent"
+    background_scrolled: "#ffffff"
+    z_index: 9999
+    behavior: "透明→スクロールで白背景にフェードイン"
+
+  # z-index 階層
+  z_index:
+    header:      9999
+    mobile_nav:  9992
+    progress:    999999
+    modal_off:   -9999
+
+  # グリッド
+  grid:
+    columns_desktop: 12
+    columns_tablet:  6
+    columns_mobile:  4
+    gap: "40px"
+
+
+# ------------------------------------------------------------
+#  COMPONENTS
+# ------------------------------------------------------------
+components:
+
+  # ボタン
+  button:
+    default:
+      background:    "#5ab8e4"
+      color:         "#ffffff"
+      border_radius: "2em"           # pill 形状
+      padding:       "1.0em 2em"
+      width:         "240px"
+      font_family:   "futura-pt"
+      font_weight:   700
+      font_size:     "1.7rem"
+      letter_spacing: "0.05em"
+      transition:    "all ease-out 0.2s"
+    hover:
+      background:    "#88c9e7"
+      opacity:       0.85
+    primary_green:
+      background:    "#79b661"
+      hover_bg:      "#5a9e47"
+    submit_action:
+      background:    "#e45539"
+      hover_bg:      "#c83e26"
+
+  # カード
+  card:
+    border_radius:  "10px"           # 角丸：自然な丸み
+    box_shadow:     "5px 8.66px 20px 0px rgba(0, 0, 0, 0.07)"
+    background:     "#ffffff"
+    padding:        "40px"
+    hover_shadow:   "7.5px 12.99px 30px 0px rgba(0, 0, 0, 0.20)"
+    hover_transform: "translateY(-4px)"
+
+  # セクションボックス
+  section_box:
+    border_radius: "20px"           # 大きめ角丸でソフトな区切り
+    background:    "#f7f7f7"
+    padding:       "60px 80px"
+
+  # バッジ / ラベル
+  badge:
+    border_radius: "2em"
+    font:          "'futura-pt' bold"
+    letter_spacing: "0.15em"
+    text_transform: "uppercase"
+    gradient_background: "linear-gradient(131deg, rgb(245,232,90) 0%, rgb(121,182,97) 100%)"
+
+  # テキストリンク
+  link:
+    color:            "#79b661"
+    text_decoration:  "none"
+    hover_opacity:    0.7
+    transition:       "opacity 0.2s ease-out"
+
+  # 区切り線
+  divider:
+    style:  "水平線・または軽量な余白のみで区切る"
+    color:  "rgba(0, 0, 0, 0.08)"
+
+
+# ------------------------------------------------------------
+#  ANIMATION & INTERACTION
+# ------------------------------------------------------------
+animation:
+
+  # ページ遷移・スクロール演出
+  transitions:
+    quick:   "all ease-out 0.2s"           # ホバー・状態変化
+    smooth:  "all cubic-bezier(0.19, 1, 0.22, 1) 1.6s"   # 入退場・パネル
+    load:    "cubic-bezier(0.230, 1.000, 0.320, 1.000) 1.2s"  # ローディング
+
+  # テキスト演出
+  text_effects:
+    clip_reveal:   "テキストをclipアニメーションで左から表示"
+    text_revealer: "マスクをスライドさせてテキストを露出"
+
+  # スクロール連動
+  scroll_behavior:
+    - header_bg_change:  "スクロール開始でヘッダー背景を白にフェード"
+    - section_fade_in:   "セクションがビューポートに入ると opacity 0→1"
+    - parallax_subtle:   "ヒーロー背景画像に軽いパラックス"
+
+  # インタラクション原則
+  principles:
+    - "hover は常に ease-out 0.2s で即レスポンス"
+    - "ページロード演出は最大 1.6s で完結"
+    - "過剰なアニメーションは避け、コンテンツの邪魔をしない"
+    - "モバイルではアニメーションを軽量化"
+
+
+# ------------------------------------------------------------
+#  IMAGERY & VISUAL LANGUAGE
+# ------------------------------------------------------------
+imagery:
+
+  photography_style:
+    - "実績・施工写真中心：本物感・信頼感を重視"
+    - "自然光・クリーンな構図"
+    - "カラー彩度はやや落ち着いた自然色"
+    - "建築・空間・人物の組み合わせ"
+
+  gallery_layout:
+    columns_desktop: 4
+    columns_mobile:  2
+    gap:  "12px"
+    border_radius: "8px"
+    aspect_ratio:  "4/3"
+
+  icon_style:
+    - "シンプルなラインアイコン or フラットアイコン"
+    - "色はアクセントグリーン or ブラック"
+
+  logo_treatment:
+    - "認証バッジ・パートナーロゴは白背景のグレースケール表示"
+    - "ロゴ行は横並びで信頼性を強調"
+
+  visual_motifs:
+    - "有機的な曲線（円・楕円）で柔らかさを演出"
+    - "グリーン系のグラデーションで成長・環境を連想"
+    - "余白を大きく取り、上質感を出す"
+
+
+# ------------------------------------------------------------
+#  ATMOSPHERE & TONE
+# ------------------------------------------------------------
+atmosphere:
+
+  keywords:
+    - "信頼感 / Trust"
+    - "清潔感 / Clean"
+    - "誠実 / Integrity"
+    - "自然 / Organic"
+    - "上質 / Premium"
+    - "長期的 / Long-term"
+    - "地に足がついた / Grounded"
+
+  tone:
+    formality:    "フォーマル〜セミフォーマル（押しつけがましくない）"
+    warmth:       "冷たくなく、かといって軽くもない。中庸な温かさ"
+    energy:       "落ち着いている。静的だが停滞感はない"
+    modernity:    "現代的だが流行に左右されないタイムレス感"
+
+  do:
+    - "たっぷりの余白でコンテンツに呼吸させる"
+    - "グリーンは差し色として節度を持って使う"
+    - "タイポグラフィの階層を明確にする"
+    - "信頼を示す実績・数字・認証を目立たせる"
+    - "CTAは1セクションに1つ、明確に"
+
+  dont:
+    - "ネオン・派手なビビッドカラーは避ける"
+    - "アニメーションで目を引きすぎない"
+    - "背景を複雑にしすぎない（シンプルな白・グレーを守る）"
+    - "フォントサイズ・ウェイトを多用しすぎない（3階層まで）"
+    - "コンテンツを詰め込みすぎない"
+
+
+# ------------------------------------------------------------
+#  RESPONSIVE BREAKPOINTS
+# ------------------------------------------------------------
+breakpoints:
+  mobile:  "max-width: 599px"
+  desktop: "min-width: 600px"
+  large:   "min-width: 1400px"
+  xlarge:  "min-width: 1600px"
+
+  strategy: >
+    モバイルファースト。デスクトップで余白・フォントを
+    大きくスケールアップ。モバイルではvw単位で流動的に対応。
+
+
+# ------------------------------------------------------------
+#  USAGE GUIDE — 他サイトへの適用方法
+# ------------------------------------------------------------
+usage_guide:
+
+  step_1_palette: >
+    colors セクションをそのまま CSS カスタムプロパティに変換する。
+    --color-accent: #79b661; のように定義し、全コンポーネントで参照する。
+
+  step_2_typography: >
+    Google Fonts から Noto Sans JP をインポート。
+    英文見出しは Futura PT の代替として DM Sans / Jost / Nunito を検討。
+    base_size を html { font-size: 10px } で設定し rem で管理する。
+
+  step_3_layout: >
+    containers.wide (1200px) を .container クラスで統一。
+    section_padding をセクション要素に適用。
+    header の透明→白フェードは scroll イベントで class 付け替え。
+
+  step_4_components: >
+    button / card / badge のスタイルをそのまま CSS クラスに落とし込む。
+    Tailwind CSS 利用時は tailwind.config の extend に palette を登録。
+
+  step_5_atmosphere: >
+    atmosphere.do / dont を UI レビュー時のチェックリストとして使う。
+    コンテンツが「重くなりすぎていないか」「余白は十分か」を定期確認。
