@@ -1,0 +1,31 @@
+{
+  "name": "antigravity-ide",
+  "version": "1.0.0",
+  "description": "- **名前**: 星野 蒼太（ほしの そうた）",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "build:watch": "tsc --project tsconfig.json --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sugurunpa-ship-it/shiny-lamp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/sugurunpa-ship-it/shiny-lamp/issues"
+  },
+  "homepage": "https://github.com/sugurunpa-ship-it/shiny-lamp#readme",
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16"
+  }
+}

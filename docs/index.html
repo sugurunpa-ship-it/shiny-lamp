@@ -11,6 +11,12 @@
 <meta property="og:url" content="https://sugurunpa-ship-it.github.io/shiny-lamp/">
 <meta name="theme-color" content="#0f0f0f">
 <meta name="robots" content="index, follow">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src https://fonts.gstatic.com;
+               img-src 'self' data: https://sugurunpa-ship-it.github.io;
+               script-src 'self'">
 <meta property="og:image" content="https://sugurunpa-ship-it.github.io/shiny-lamp/images/image-1780011671926.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -348,44 +354,7 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
   </div>
 </footer>
 
-<script>
-/* ナビ背景 */
-const nav=document.getElementById('main-nav');
-window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80)},{passive:true});
-
-/* スクロールリビール */
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
-},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*0.1+'s';io.observe(el);});
-
-/* フィルター */
-document.querySelectorAll('.ftag').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.ftag').forEach(b=>b.classList.remove('on'));
-    btn.classList.add('on');
-    const f=btn.dataset.f;
-    document.querySelectorAll('.work-card').forEach(card=>{
-      const show=f==='all'||card.dataset.cat===f;
-      card.style.display=show?'':'none';
-      card.style.gridColumn=''; // CSSクラスに委ねる（card-full は CSS で定義済み）
-    });
-  });
-});
-
-/* ナビアクティブ */
-const secs=document.querySelectorAll('section[id]');
-const links=document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll',()=>{
-  let cur='';
-  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});
-  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
-},{passive:true});
-
-/* prefers-reduced-motion */
-if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){
-  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
-}
-</script>
+<!-- TypeScript ビルド成果物（src/ → docs/assets/main.js） -->
+<script type="module" src="./assets/main.js"></script>
 </body>
 </html>
