@@ -4,563 +4,388 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Antigravity IDE — AI Developer Portfolio</title>
+<meta name="description" content="Claude Code の SubAgents・Skills・Commands を組み合わせてゲーム・記事・開発ツールを高速生成するAI開発者のポートフォリオ。">
+<meta property="og:title" content="Antigravity IDE — AI Developer Portfolio">
+<meta property="og:description" content="AIでアイデアをプロダクトに変える">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sugurunpa-ship-it.github.io/shiny-lamp/">
+<meta name="theme-color" content="#0f0f0f">
+<meta name="robots" content="index, follow">
+<meta property="og:image" content="https://sugurunpa-ship-it.github.io/shiny-lamp/images/image-1780011671926.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="canonical" href="https://sugurunpa-ship-it.github.io/shiny-lamp/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet"></noscript>
 <style>
-/* ─── RESET ─── */
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — toyota-premium-minimal
+   Abstracted from: toyota.jp
+═══════════════════════════════════════════ */
+:root {
+  --color-bg:        #ffffff;
+  --color-bg-alt:    #f5f5f5;
+  --color-dark:      #0f0f0f;
+  --color-dark2:     #1a1a1a;
+  --color-dark3:     #222222;
+  --color-text:      #111111;
+  --color-on-dark:   #ffffff;
+  --color-muted:     #666666;
+  --color-muted-dark: rgba(255,255,255,0.65);
+  --color-red:       #EB0A1E;
+  --color-red-hover: #c50818;
+  --color-red-light: rgba(235,10,30,0.08);
+  --color-border:    rgba(0,0,0,0.08);
+  --color-border-dark: rgba(255,255,255,0.08);
+  --shadow-card:    0 4px 24px rgba(0,0,0,0.08);
+  --shadow-hover:   0 12px 48px rgba(0,0,0,0.18);
+  --shadow-red:     0 4px 20px rgba(235,10,30,0.35);
+  --font-h: 'Barlow Condensed','Noto Sans JP',sans-serif;
+  --font-b: 'Noto Sans JP','Yu Gothic',YuGothic,'Hiragino Kaku Gothic Pro','Meiryo',sans-serif;
+  --container: 1200px;
+  --wrap-x: 80px;
+  --section-py: 120px;
+  --ease: cubic-bezier(0.25,0.46,0.45,0.94);
+  --ease-quick: all ease-out 0.2s;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:10px;scroll-behavior:smooth}
-body{
-  font-family:'Noto Sans JP','Yu Gothic',YuGothic,'Hiragino Kaku Gothic Pro','Meiryo',sans-serif;
-  font-size:1.6rem;color:#111;background:#fff;line-height:1.8;
-  letter-spacing:.05em;overflow-x:hidden;
-}
+body{font-family:var(--font-b);font-size:1.5rem;color:var(--color-text);background:var(--color-bg);line-height:1.8;letter-spacing:.03em;overflow-x:hidden}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
 
-/* ─── VARIABLES ─── */
-:root{
-  --green:#79b661;--green-d:#5a9e47;
-  --blue:#5ab8e4;--blue-h:#88c9e7;
-  --yellow:#eddf47;
-  --grad:linear-gradient(131deg,rgb(245,232,90) 0%,rgb(121,182,97) 100%);
-  --grad-text:linear-gradient(131deg,#eddf47 0%,#79b661 100%);
-  --bg:#fff;--bg2:#f7f7f7;
-  --shadow:5px 8.66px 20px 0 rgba(0,0,0,.07);
-  --shadow-md:7.5px 12.99px 30px 0 rgba(0,0,0,.20);
-  --ease:cubic-bezier(0.19,1,0.22,1);
-  --font-h:'Jost','futura-pt',sans-serif;
-  --lm:60px;--container:1200px;
-}
-
-/* ─── NAVIGATION ─── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:9999;
-  height:70px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 var(--lm);
-  background:transparent;
-  transition:background .4s ease,box-shadow .4s ease;
-}
-nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 1px 0 rgba(0,0,0,.08)}
-.nav-logo{
-  font-family:var(--font-h);font-size:1.7rem;font-weight:700;letter-spacing:.04em;
-  color:#fff;display:flex;align-items:center;gap:10px;
-  transition:color .3s;
-}
-nav.scrolled .nav-logo{color:#111}
-.logo-mark{
-  width:30px;height:30px;border-radius:7px;
-  background:var(--grad);
-  display:grid;place-items:center;font-size:1.4rem;color:#fff;flex-shrink:0;
-}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--wrap-x);background:transparent;transition:background .4s var(--ease)}
+nav.scrolled{background:rgba(15,15,15,.96);backdrop-filter:blur(12px)}
+.nav-logo{font-family:var(--font-h);font-size:2.0rem;font-weight:700;letter-spacing:.06em;color:#fff;display:flex;align-items:center;gap:10px}
+.nav-logo-mark{width:28px;height:28px;border-radius:3px;background:var(--color-red);display:grid;place-items:center;font-size:1.3rem;color:#fff;flex-shrink:0}
 .nav-links{display:flex;gap:36px;list-style:none}
-.nav-links a{
-  font-family:var(--font-h);font-size:1.4rem;font-weight:500;
-  color:rgba(255,255,255,.8);
-  position:relative;padding-bottom:4px;
-  transition:color .2s ease-out;
-}
-nav.scrolled .nav-links a{color:#555}
-.nav-links a::after{
-  content:'';position:absolute;bottom:0;left:0;
-  width:0;height:2px;background:var(--green);
-  transition:width .25s var(--ease);
-}
+.nav-links a{font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8);position:relative;padding-bottom:4px;transition:var(--ease-quick)}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--color-red);transition:width .25s var(--ease)}
 .nav-links a:hover{color:#fff}
-nav.scrolled .nav-links a:hover{color:var(--green-d)}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%}
 
-/* ─── HERO ─── */
-#hero{
-  height:100vh;min-height:600px;position:relative;overflow:hidden;
-  display:flex;align-items:center;
-}
-/* 背景グラデーション（links-g.com の hero 画像の代替） */
-.hero-bg{
-  position:absolute;inset:0;
-  background:linear-gradient(140deg,#1a3a1a 0%,#2d5a2d 35%,#4a8c3f 65%,#79b661 100%);
-}
-.hero-bg::after{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 70% 60% at 80% 50%,rgba(237,223,71,.15) 0%,transparent 65%),
-    linear-gradient(to right,rgba(0,0,0,.35) 0%,rgba(0,0,0,.1) 60%,transparent 100%);
-}
-/* 斜線グリッドパターン（テクスチャ） */
-.hero-bg::before{
-  content:'';position:absolute;inset:0;opacity:.04;
-  background-image:repeating-linear-gradient(
-    45deg,#fff 0,#fff 1px,transparent 0,transparent 50%
-  );background-size:20px 20px;
-}
-.hero-inner{
-  position:relative;z-index:1;
-  padding:0 0 0 7.5vw;max-width:900px;
-}
-.hero-label{
-  font-family:var(--font-h);font-size:1.1rem;font-weight:500;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--yellow);
-  margin-bottom:20px;display:flex;align-items:center;gap:12px;
-}
-.hero-label::before{content:'';width:32px;height:1px;background:var(--yellow)}
-.hero-en{
-  font-family:var(--font-h);font-size:clamp(4.8rem,7vw,7.2rem);
-  font-weight:700;line-height:1.0;letter-spacing:-.01em;
-  color:#fff;margin-bottom:10px;
-}
-.hero-en span{
-  display:inline-block;
-  background:var(--grad);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero-ja{
-  font-size:2.0rem;font-weight:700;color:rgba(255,255,255,.92);
-  margin-bottom:28px;line-height:1.6;
-}
-.hero-sub{
-  font-size:1.5rem;color:rgba(255,255,255,.72);
-  max-width:560px;line-height:1.9;margin-bottom:44px;
-}
-.hero-sub strong{color:rgba(255,255,255,.95)}
-/* ─ ボタン（links-g.com スタイル） ─ */
-.btn-more{
-  display:inline-flex;align-items:center;gap:10px;
-  width:240px;padding:1.0em 2em;
-  background:var(--blue);color:#fff;border:none;
-  border-radius:2em;cursor:pointer;
-  font-family:var(--font-h);font-size:1.7rem;font-weight:700;
-  letter-spacing:.05em;
-  transition:background .2s ease-out,transform .2s ease-out,box-shadow .2s ease-out;
-  box-shadow:0 4px 20px rgba(90,184,228,.4);
-}
-.btn-more:hover{background:var(--blue-h);transform:translateY(-2px);opacity:.9}
-.btn-more .arr{
-  width:20px;height:20px;border-radius:50%;
-  background:rgba(255,255,255,.25);
-  display:grid;place-items:center;font-size:1.1rem;flex-shrink:0;
-  transition:transform .2s;
-}
-.btn-more:hover .arr{transform:translateX(3px)}
-.btn-ghost{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:1.0em 2em;margin-left:14px;
-  background:transparent;color:#fff;
-  border:1.5px solid rgba(255,255,255,.4);border-radius:2em;cursor:pointer;
-  font-family:var(--font-h);font-size:1.5rem;font-weight:500;
-  transition:border-color .2s,background .2s;
-}
-.btn-ghost:hover{border-color:rgba(255,255,255,.8);background:rgba(255,255,255,.08)}
-.hero-btns{display:flex;align-items:center;flex-wrap:wrap;gap:0}
-/* スクロールインジケーター */
-.scroll-indicator{
-  position:absolute;bottom:36px;left:7.5vw;z-index:2;
-  display:flex;align-items:center;gap:10px;
-  font-family:var(--font-h);font-size:1.1rem;letter-spacing:.15em;
-  text-transform:uppercase;color:rgba(255,255,255,.5);
-}
-.scroll-line{
-  width:40px;height:1px;background:rgba(255,255,255,.4);
-  position:relative;overflow:hidden;
-}
-.scroll-line::after{
-  content:'';position:absolute;left:-100%;top:0;bottom:0;
-  width:100%;background:#fff;
-  animation:scroll-anim 2s var(--ease) infinite;
-}
-@keyframes scroll-anim{to{left:100%}}
+/* HERO */
+#hero{height:100vh;min-height:600px;position:relative;overflow:hidden;display:flex;align-items:flex-end;background:var(--color-dark)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(235,10,30,.08) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 10% 80%,rgba(235,10,30,.05) 0%,transparent 50%)}
+.hero-grid{position:absolute;inset:0;opacity:.04;background-image:linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px);background-size:80px 80px}
+.hero-deco{position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-family:var(--font-h);font-size:32rem;font-weight:800;line-height:1;color:rgba(235,10,30,.04);user-select:none;pointer-events:none;white-space:nowrap}
+.hero-inner{position:relative;z-index:2;padding:0 var(--wrap-x) 80px;max-width:900px}
+.section-label{font-family:'Barlow',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--color-red);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.section-label::before{content:'';width:32px;height:2px;background:var(--color-red)}
+.hero-en{font-family:var(--font-h);font-size:clamp(5.4rem,8vw,10rem);font-weight:800;line-height:.92;letter-spacing:-.02em;color:#fff;margin-bottom:16px}
+.hero-en .red{color:var(--color-red)}
+.hero-ja{font-size:2.2rem;font-weight:700;color:rgba(255,255,255,.88);margin-bottom:24px;line-height:1.5}
+.hero-sub{font-size:1.5rem;color:rgba(255,255,255,.65);max-width:560px;line-height:1.9;margin-bottom:44px}
+.hero-sub strong{color:rgba(255,255,255,.9)}
+.hero-btns{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 40px;background:var(--color-red);color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;box-shadow:var(--shadow-red);transition:var(--ease-quick)}
+.btn-primary:hover{background:var(--color-red-hover);transform:translateY(-2px);box-shadow:0 8px 28px rgba(235,10,30,.45)}
+.btn-ghost-dark{display:inline-flex;align-items:center;gap:10px;padding:13px 36px;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:var(--ease-quick)}
+.btn-ghost-dark:hover{border-color:var(--color-red);color:var(--color-red)}
+.scroll-ind{position:absolute;right:var(--wrap-x);bottom:36px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'Barlow',sans-serif;font-size:1.0rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);writing-mode:vertical-rl}
+.scroll-line{width:1px;height:60px;background:rgba(255,255,255,.15);position:relative;overflow:hidden}
+.scroll-line::after{content:'';position:absolute;top:-100%;left:0;right:0;height:100%;background:var(--color-red);animation:scroll-anim 2s var(--ease) infinite}
+@keyframes scroll-anim{to{top:100%}}
 
-/* ─── SECTION BASE ─── */
-.section{padding:100px 0}
-.section--alt{background:var(--bg2)}
-.wrap{max-width:var(--container);margin:0 auto;padding:0 var(--lm)}
-/* 見出し（links-g.com バイリンガルパターン） */
-.sec-head{margin-bottom:60px}
-.sec-en{
-  font-family:var(--font-h);font-size:5.4rem;font-weight:700;
-  line-height:1.0;letter-spacing:-.01em;
-  background:var(--grad-text);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  margin-bottom:4px;
-}
-.sec-ja{font-size:2.0rem;font-weight:700;color:#111;margin-bottom:14px}
-.sec-desc{font-size:1.5rem;color:#666;max-width:520px;line-height:1.85}
-/* 区切り線 */
-.divider{
-  height:1px;max-width:var(--container);margin:0 auto;
-  background:linear-gradient(90deg,transparent,rgba(0,0,0,.08),transparent);
-}
+/* SECTION BASE */
+.section{padding:var(--section-py) 0}
+.section--light{background:var(--color-bg)}
+.section--alt{background:var(--color-bg-alt)}
+.section--dark{background:var(--color-dark2)}
+.section--darkest{background:var(--color-dark)}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 var(--wrap-x)}
+.sec-head{margin-bottom:64px}
+.sec-label{font-family:'Barlow',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--color-red);margin-bottom:10px}
+.red-rule{width:48px;height:3px;background:var(--color-red);margin:10px 0 18px}
+.sec-en{font-family:var(--font-h);font-size:5.4rem;font-weight:800;line-height:1.0;letter-spacing:-.01em;color:var(--color-text);margin-bottom:8px}
+.sec-en--dark{color:var(--color-on-dark)}
+.sec-ja{font-size:2.0rem;font-weight:700;color:var(--color-text);margin-bottom:12px}
+.sec-ja--dark{color:var(--color-on-dark)}
+.sec-desc{font-size:1.5rem;color:var(--color-muted);max-width:520px;line-height:1.85}
+.sec-desc--dark{color:var(--color-muted-dark)}
+.divider{height:1px;max-width:var(--container);margin:0 auto;background:var(--color-border)}
+.divider--dark{height:1px;background:var(--color-border-dark)}
 
-/* ─── WORKS ─── */
+/* WORKS */
 .filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
-.ftag{
-  padding:7px 22px;border-radius:2em;
-  font-family:var(--font-h);font-size:1.3rem;font-weight:500;
-  border:1.5px solid rgba(0,0,0,.12);color:#777;
-  background:transparent;cursor:pointer;
-  transition:all .2s ease-out;
-}
-.ftag.on,.ftag:hover{background:rgba(121,182,97,.1);color:var(--green-d);border-color:rgba(121,182,97,.5)}
-
-/* Works グリッド（links-g.com lineup スタイル） */
-.works-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:28px;
-}
+.ftag{padding:8px 24px;border-radius:4px;font-family:'Barlow',sans-serif;font-size:1.2rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--color-border);color:var(--color-muted);background:transparent;cursor:pointer;transition:var(--ease-quick)}
+.ftag.on,.ftag:hover{background:var(--color-red-light);color:var(--color-red);border-color:rgba(235,10,30,.35)}
+.works-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 .card-full{grid-column:1/-1}
-.work-card{
-  background:#fff;border-radius:10px;overflow:hidden;
-  box-shadow:var(--shadow);
-  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
-}
-.work-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
-
-/* 画像コンテナ：padding-bottom アスペクト比 */
-.card-img{
-  position:relative;width:100%;padding-bottom:66.66%;/* 3:2 */
-  overflow:hidden;background:var(--bg2);
-}
-.card-full .card-img{padding-bottom:38%;/* 横長 */}
-.card-img img{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:top;
-  transition:transform .5s var(--ease),opacity .3s;
-}
-.work-card:hover .card-img img{transform:scale(1.05)}
-/* カテゴリバッジ */
-.card-cat{
-  position:absolute;top:14px;left:14px;z-index:2;
-  padding:5px 14px;border-radius:2em;
-  font-family:var(--font-h);font-size:1.1rem;font-weight:700;letter-spacing:.06em;
-  background:rgba(255,255,255,.9);backdrop-filter:blur(6px);
-  border:1px solid rgba(0,0,0,.08);
-}
-.cat-game{color:#7c3aed}
-.cat-tool{color:#0284c7}
-.cat-cont{color:var(--green-d)}
-/* 画像下グラデ */
-.card-img::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:50%;
-  background:linear-gradient(transparent,rgba(0,0,0,.15));
-  pointer-events:none;
-}
-/* カードボディ */
+.work-card{background:var(--color-bg);border:1px solid var(--color-border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-card);transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s}
+.work-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);border-color:rgba(235,10,30,.3)}
+.card-img{position:relative;width:100%;padding-bottom:62.5%;overflow:hidden;background:var(--color-bg-alt)}
+.card-full .card-img{padding-bottom:38%}
+.card-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .5s var(--ease)}
+.work-card:hover .card-img img{transform:scale(1.04)}
+.card-cat{position:absolute;top:14px;left:14px;z-index:2;padding:5px 14px;border-radius:2px;font-family:'Barlow',sans-serif;font-size:1.0rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(15,15,15,.85);color:#fff;backdrop-filter:blur(6px)}
+.cat-game{border-left:3px solid #a855f7}
+.cat-tool{border-left:3px solid #3b82f6}
+.cat-cont{border-left:3px solid var(--color-red)}
 .card-body{padding:24px 28px 28px}
-.card-title{
-  font-family:var(--font-h);font-size:1.8rem;font-weight:700;
-  margin-bottom:10px;color:#111;
-}
-.card-desc{font-size:1.4rem;color:#666;line-height:1.75}
+.card-title{font-family:var(--font-h);font-size:2.0rem;font-weight:700;margin-bottom:10px;color:var(--color-text);letter-spacing:.02em}
+.card-desc{font-size:1.4rem;color:var(--color-muted);line-height:1.75}
 .card-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.card-tag{
-  font-family:var(--font-h);font-size:1.1rem;padding:4px 12px;
-  border-radius:2em;background:rgba(121,182,97,.08);
-  color:var(--green-d);border:1px solid rgba(121,182,97,.3);
-}
+.card-tag{font-family:'Barlow',sans-serif;font-size:1.0rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:2px;background:var(--color-red-light);color:var(--color-red);border:1px solid rgba(235,10,30,.25)}
 
-/* ─── SKILLS ─── */
-.skills-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:0;
-}
-.skill-chip{
-  background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;
-  padding:16px 18px;display:flex;align-items:center;gap:12px;
-  font-size:1.4rem;font-weight:500;color:#111;
-  box-shadow:var(--shadow);
-  transition:all .2s ease-out;
-}
-.skill-chip:hover{border-color:rgba(121,182,97,.4);transform:translateY(-3px);box-shadow:var(--shadow-md)}
-.skill-chip .ic{font-size:2rem;flex-shrink:0}
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.skill-chip{background:var(--color-dark3);border:1px solid var(--color-border-dark);border-radius:4px;padding:18px 20px;display:flex;align-items:center;gap:14px;font-size:1.4rem;font-weight:500;color:rgba(255,255,255,.85);transition:var(--ease-quick)}
+.skill-chip:hover{border-color:rgba(235,10,30,.55);background:rgba(235,10,30,.05)}
+.skill-chip .ic{font-size:2.0rem;flex-shrink:0}
 .skill-dots{margin-left:auto;display:flex;gap:4px;align-items:center}
-.dot{width:6px;height:6px;border-radius:50%;background:#ddd}
-.dot.on{background:var(--green)}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.15)}
+.dot.on{background:var(--color-red)}
 
-/* ─── CONTACT ─── */
-.contact-box{
-  max-width:680px;margin:0 auto;text-align:center;
-  background:var(--bg2);border:1px solid rgba(0,0,0,.07);
-  border-radius:20px;padding:64px 56px;
-  box-shadow:var(--shadow);position:relative;overflow:hidden;
-}
-.contact-box::before{
-  content:'';position:absolute;top:-80px;right:-80px;
-  width:240px;height:240px;border-radius:50%;
-  background:radial-gradient(circle,rgba(121,182,97,.12) 0%,transparent 70%);
-}
-.contact-en{
-  font-family:var(--font-h);font-size:3.6rem;font-weight:700;
-  background:var(--grad-text);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  margin-bottom:6px;
-}
-.contact-ja{font-size:2.0rem;font-weight:700;color:#111;margin-bottom:18px}
-.contact-sub{font-size:1.5rem;color:#777;line-height:1.9;margin-bottom:40px}
+/* CONTACT */
+.contact-inner{max-width:680px;margin:0 auto;text-align:center;border:1px solid var(--color-border-dark);border-radius:8px;padding:64px 56px;position:relative;overflow:hidden;background:rgba(255,255,255,.02)}
+.contact-inner::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--color-red)}
+.contact-en{font-family:var(--font-h);font-size:4.8rem;font-weight:800;color:#fff;margin-bottom:4px;letter-spacing:-.01em}
+.contact-ja{font-size:1.8rem;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:24px}
+.contact-sub{font-size:1.5rem;color:var(--color-muted-dark);margin-bottom:40px;line-height:1.9}
 .social-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.social-btn{
-  padding:11px 26px;border-radius:10px;
-  border:1.5px solid rgba(0,0,0,.1);color:#111;
-  background:#fff;font-family:var(--font-h);font-size:1.4rem;font-weight:500;
-  display:inline-flex;align-items:center;gap:8px;
-  box-shadow:var(--shadow);transition:all .2s ease-out;
-}
-.social-btn:hover{border-color:rgba(121,182,97,.45);color:var(--green-d);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.social-btn{padding:11px 26px;border-radius:4px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);background:transparent;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.06em;display:inline-flex;align-items:center;gap:8px;transition:var(--ease-quick)}
+.social-btn:hover{border-color:var(--color-red);color:var(--color-red);background:rgba(235,10,30,.06);transform:translateY(-2px)}
 
-/* ─── FOOTER ─── */
-footer{
-  background:var(--bg2);border-top:1px solid rgba(0,0,0,.06);
-  padding:36px var(--lm);
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:16px;
-}
-.footer-copy{font-size:1.3rem;color:#aaa}
-.footer-brand{
-  background:var(--grad-text);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;font-weight:700;
-}
-.footer-badges{display:flex;gap:16px;align-items:center}
-.badge-chip{
-  padding:4px 14px;border-radius:4px;
-  font-family:var(--font-h);font-size:1.1rem;font-weight:700;
-  background:#fff;border:1.5px solid var(--green);color:var(--green-d);
-  letter-spacing:.06em;
+/* FOOTER */
+footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark);padding:36px var(--wrap-x);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-copy{font-size:1.3rem;color:rgba(255,255,255,.3);font-family:'Barlow',sans-serif;letter-spacing:.05em}
+.footer-copy span{color:var(--color-red)}
+.footer-badges{display:flex;gap:12px;align-items:center}
+.footer-badge{padding:4px 14px;border-radius:2px;font-family:'Barlow',sans-serif;font-size:1.0rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+/* prefers-reduced-motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .scroll-line::after{animation:none}
+  .reveal{opacity:1;transform:none}
 }
 
-/* ─── IN-VIEW アニメーション ─── */
-.js-inview{
-  opacity:0;transform:translateY(32px);
-  transition:opacity .8s var(--ease),transform .8s var(--ease);
-}
-.js-inview.visible{opacity:1;transform:none}
-
-/* ─── RESPONSIVE ─── */
-@media(max-width:599px){
-  :root{--lm:6.25vw}
-  nav{padding:0 var(--lm);height:60px}
+/* RESPONSIVE */
+@media(max-width:767px){
+  :root{--wrap-x:20px;--section-py:60px}
+  nav{padding:0 var(--wrap-x);height:60px}
   .nav-links{gap:20px}
-  .section{padding:8vw 0}
-  .sec-en{font-size:3.6rem}
-  .hero-en{font-size:4rem}
+  .nav-links a{font-size:1.1rem}
+  .hero-inner{padding:0 var(--wrap-x) 60px}
+  .hero-en{font-size:clamp(4.0rem,12vw,7rem)}
   .hero-ja{font-size:1.8rem}
+  .hero-deco,.scroll-ind{display:none}
+  .sec-en{font-size:3.6rem}
   .works-grid{grid-template-columns:1fr}
   .card-full{grid-column:auto}
-  .card-full .card-img{padding-bottom:66.66%}
+  .card-full .card-img{padding-bottom:62.5%}
   .skills-grid{grid-template-columns:1fr 1fr}
-  .contact-box{padding:44px 28px}
+  .contact-inner{padding:44px 24px}
   footer{flex-direction:column;text-align:center}
 }
-@media(min-width:600px) and (max-width:899px){
-  :root{--lm:32px}
+@media(min-width:768px) and (max-width:1023px){
+  :root{--wrap-x:40px;--section-py:80px}
   .sec-en{font-size:4.2rem}
-  .works-grid{grid-template-columns:1fr}
-  .card-full{grid-column:auto}
 }
 </style>
 </head>
 <body>
 
-<!-- ══ NAV ══ -->
-<nav id="main-nav">
+<!-- NAV -->
+<nav id="main-nav" aria-label="メインナビゲーション">
   <div class="nav-logo">
-    <div class="logo-mark">✦</div>
+    <div class="nav-logo-mark" aria-hidden="true">✦</div>
     Antigravity IDE
   </div>
-  <ul class="nav-links">
+  <ul class="nav-links" role="list">
     <li><a href="#works">Works</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- ══ HERO ══ -->
+<!-- HERO -->
 <section id="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-deco" aria-hidden="true">AI</div>
   <div class="hero-inner">
-    <div class="hero-label">AI Developer Portfolio</div>
-    <div class="hero-en">AI × <span>Antigravity</span><br>IDE</div>
-    <div class="hero-ja">AIでアイデアをプロダクトに変える</div>
+    <div class="section-label">AI Developer Portfolio</div>
+    <h1 class="hero-en">ANTI<br><span class="red">GRAVITY</span></h1>
+    <p class="hero-ja">AIでアイデアをプロダクトに変える</p>
     <p class="hero-sub">
       <strong>Claude Code</strong> の SubAgents・Skills・Commands を組み合わせ、<br>
       ゲーム・記事・開発ツールを高速で自動生成しています。
     </p>
     <div class="hero-btns">
-      <a href="#works" class="btn-more">
-        実績を見る <span class="arr">▼</span>
-      </a>
-      <a href="#contact" class="btn-ghost">お問い合わせ</a>
+      <a href="#works" class="btn-primary">実績を見る</a>
+      <a href="#contact" class="btn-ghost-dark">お問い合わせ</a>
     </div>
   </div>
-  <div class="scroll-indicator">
+  <div class="scroll-ind" aria-hidden="true">
+    <span>Scroll</span>
     <div class="scroll-line"></div>
-    Scroll
   </div>
 </section>
 
+<!-- WORKS -->
 <div class="divider"></div>
-
-<!-- ══ WORKS ══ -->
-<section id="works" class="section">
+<section id="works" class="section section--light" aria-label="制作実績">
   <div class="wrap">
-    <div class="sec-head js-inview">
-      <div class="sec-en">Portfolio</div>
-      <div class="sec-ja">制作実績</div>
+    <div class="sec-head reveal">
+      <div class="sec-label">Portfolio</div>
+      <h2 class="sec-en">Works</h2>
+      <div class="red-rule" aria-hidden="true"></div>
+      <p class="sec-ja">制作実績</p>
       <p class="sec-desc">Claude Code を活用して制作したゲーム・コンテンツ・開発ツールの一覧です。</p>
     </div>
-    <div class="filter-bar js-inview">
-      <button class="ftag on" data-f="all">すべて</button>
-      <button class="ftag" data-f="game">🎮 ゲーム</button>
-      <button class="ftag" data-f="tool">🛠 開発ツール</button>
-      <button class="ftag" data-f="cont">✍️ コンテンツ</button>
+    <div class="filter-bar reveal" role="group" aria-label="カテゴリフィルター">
+      <button class="ftag on" data-f="all">All</button>
+      <button class="ftag" data-f="game">Game</button>
+      <button class="ftag" data-f="tool">Dev Tool</button>
+      <button class="ftag" data-f="cont">Content</button>
     </div>
     <div class="works-grid">
-
-      <!-- ぷよぷよ -->
-      <div class="work-card js-inview" data-cat="game">
+      <article class="work-card reveal" data-cat="game">
         <div class="card-img">
-          <img src="images/image-1780011618012.png" alt="ぷよぷよ">
-          <span class="card-cat cat-game">🎮 Game</span>
+          <img src="images/image-1780011618012.png" alt="ぷよぷよ — Claude Codeで実装したブラウザパズルゲーム" loading="lazy">
+          <span class="card-cat cat-game">Game</span>
         </div>
         <div class="card-body">
-          <div class="card-title">ぷよぷよ</div>
+          <h3 class="card-title">ぷよぷよ</h3>
           <p class="card-desc">Claude Code で一から実装したブラウザパズルゲーム。落下・回転・連鎖判定・スコア管理をすべてAIが自動生成。</p>
           <div class="card-tags">
             <span class="card-tag">JavaScript</span><span class="card-tag">HTML/CSS</span><span class="card-tag">Claude Code</span>
           </div>
         </div>
-      </div>
-
-      <!-- Antigravity IDE -->
-      <div class="work-card js-inview" data-cat="tool">
+      </article>
+      <article class="work-card reveal" data-cat="tool">
         <div class="card-img">
-          <img src="images/image-1780011671926.png" alt="Antigravity IDE">
-          <span class="card-cat cat-tool">🛠 Dev Tool</span>
+          <img src="images/image-1780011671926.png" alt="Antigravity IDE — Claude Code カスタム開発環境" loading="lazy">
+          <span class="card-cat cat-tool">Dev Tool</span>
         </div>
         <div class="card-body">
-          <div class="card-title">Antigravity IDE</div>
+          <h3 class="card-title">Antigravity IDE</h3>
           <p class="card-desc">カスタム Skills 20本＋SubAgents を構築したAI開発環境。あらゆる開発タスクをワンコマンドで自動化。</p>
           <div class="card-tags">
             <span class="card-tag">Skills×20</span><span class="card-tag">SubAgents</span><span class="card-tag">CLAUDE.md</span>
           </div>
         </div>
-      </div>
-
-      <!-- SEO 記事（フル幅） -->
-      <div class="work-card card-full js-inview" data-cat="cont">
+      </article>
+      <article class="work-card card-full reveal" data-cat="cont">
         <div class="card-img">
-          <img src="images/article.png" alt="SEOブログ記事" style="object-position:top left">
-          <span class="card-cat cat-cont">✍️ Content</span>
+          <img src="images/article.png" alt="SEOブログ記事 — 不動産業界の進化をAIが自動執筆" loading="lazy" style="object-position:top left">
+          <span class="card-cat cat-cont">Content</span>
         </div>
         <div class="card-body">
-          <div class="card-title">SEO ブログ記事 — 不動産業界の進化</div>
+          <h3 class="card-title">SEO ブログ記事 — 不動産業界の進化</h3>
           <p class="card-desc">seo-blog-writer SubAgent が自動執筆。char-counter スキルで目標 1,000字 ±5% 以内に自動最適化。</p>
           <div class="card-tags">
             <span class="card-tag">seo-blog-writer</span><span class="card-tag">char-counter</span><span class="card-tag">983文字達成</span>
           </div>
         </div>
-      </div>
-
-    </div><!-- /works-grid -->
+      </article>
+    </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- ══ SKILLS ══ -->
-<section id="skills" class="section section--alt">
+<!-- SKILLS -->
+<div class="divider--dark"></div>
+<section id="skills" class="section section--dark" aria-label="使用技術">
   <div class="wrap">
-    <div class="sec-head js-inview">
-      <div class="sec-en">Tech Stack</div>
-      <div class="sec-ja">使用技術・スキル</div>
-      <p class="sec-desc">AI開発・コンテンツ制作・業務自動化に活用しているツール群。</p>
+    <div class="sec-head reveal">
+      <div class="sec-label">Tech Stack</div>
+      <h2 class="sec-en sec-en--dark">Skills</h2>
+      <div class="red-rule" aria-hidden="true"></div>
+      <p class="sec-ja sec-ja--dark">使用技術・スキル</p>
+      <p class="sec-desc sec-desc--dark">AI開発・コンテンツ制作・業務自動化に活用しているツール群。</p>
     </div>
     <div class="skills-grid">
-      <div class="skill-chip js-inview"><span class="ic">🤖</span>Claude Code<div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div></div>
-      <div class="skill-chip js-inview"><span class="ic">✦</span>SubAgents<div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div></div>
-      <div class="skill-chip js-inview"><span class="ic">🔧</span>Custom Skills<div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div></div>
-      <div class="skill-chip js-inview"><span class="ic">🐍</span>Python<div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div></div>
-      <div class="skill-chip js-inview"><span class="ic">🌐</span>HTML / CSS<div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div></div>
-      <div class="skill-chip js-inview"><span class="ic">⚡</span>JavaScript<div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div></div>
-      <div class="skill-chip js-inview"><span class="ic">🗄️</span>SQL / DB<div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div></div>
-      <div class="skill-chip js-inview"><span class="ic">🔒</span>Security<div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div></div>
-      <div class="skill-chip js-inview"><span class="ic">🚀</span>CI / CD<div class="skill-dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div></div>
-      <div class="skill-chip js-inview"><span class="ic">🐳</span>Docker<div class="skill-dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div></div>
-      <div class="skill-chip js-inview"><span class="ic">📝</span>SEO Writing<div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div></div>
-      <div class="skill-chip js-inview"><span class="ic">📊</span>Excel / PDF<div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">🤖</span>Claude Code<div class="skill-dots" aria-label="習熟度3"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">✦</span>SubAgents<div class="skill-dots" aria-label="習熟度3"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">🔧</span>Custom Skills<div class="skill-dots" aria-label="習熟度3"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">🐍</span>Python<div class="skill-dots" aria-label="習熟度2"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">🌐</span>HTML / CSS<div class="skill-dots" aria-label="習熟度3"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">⚡</span>JavaScript<div class="skill-dots" aria-label="習熟度2"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">🗄️</span>SQL / DB<div class="skill-dots" aria-label="習熟度2"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">🔒</span>Security<div class="skill-dots" aria-label="習熟度2"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">🚀</span>CI / CD<div class="skill-dots" aria-label="習熟度1"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">🐳</span>Docker<div class="skill-dots" aria-label="習熟度1"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">📝</span>SEO Writing<div class="skill-dots" aria-label="習熟度3"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div></div>
+      <div class="skill-chip reveal"><span class="ic">📊</span>Excel / PDF<div class="skill-dots" aria-label="習熟度2"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div></div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- ══ CONTACT ══ -->
-<section id="contact" class="section">
+<!-- CONTACT -->
+<div class="divider--dark"></div>
+<section id="contact" class="section section--darkest" aria-label="お問い合わせ">
   <div class="wrap">
-    <div class="contact-box js-inview">
-      <div class="contact-en">Contact</div>
-      <div class="contact-ja">お問い合わせ</div>
-      <p class="contact-sub">
-        お仕事のご依頼・コラボレーションはこちらからどうぞ。<br>
-        Claude Code を使った高速開発・業務自動化のご相談もお気軽に。
-      </p>
+    <div class="contact-inner reveal">
+      <h2 class="contact-en">Contact</h2>
+      <div class="red-rule" aria-hidden="true" style="margin:10px auto 18px;"></div>
+      <p class="contact-ja">お問い合わせ</p>
+      <p class="contact-sub">お仕事のご依頼・コラボレーションはこちらからどうぞ。<br>Claude Code を使った高速開発・業務自動化のご相談もお気軽に。</p>
       <div class="social-row">
-        <a class="social-btn" href="#">𝕏 Twitter/X</a>
-        <a class="social-btn" href="#">💼 LinkedIn</a>
-        <a class="social-btn" href="#">🐙 GitHub</a>
-        <a class="social-btn" href="#">✉️ Email</a>
+        <a class="social-btn" href="https://twitter.com/" aria-label="Twitter/X" target="_blank" rel="noopener noreferrer">𝕏 Twitter/X</a>
+        <a class="social-btn" href="https://linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
+        <a class="social-btn" href="https://github.com/sugurunpa-ship-it" aria-label="GitHub" target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
+        <a class="social-btn" href="mailto:sugurunpa@hotmail.com" aria-label="メールを送る">✉️ Email</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ FOOTER ══ -->
-<footer>
-  <p class="footer-copy">© 2026 <span class="footer-brand">Antigravity IDE</span> — Built with Claude Code ✦</p>
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <p class="footer-copy">© 2026 <span>Antigravity IDE</span> — Built with Claude Code ✦</p>
   <div class="footer-badges">
-    <span class="badge-chip">Claude Code</span>
-    <span class="badge-chip">AI Dev</span>
-    <span class="badge-chip">SubAgents</span>
+    <span class="footer-badge">Claude Code</span>
+    <span class="footer-badge">AI Dev</span>
+    <span class="footer-badge">SubAgents</span>
   </div>
 </footer>
 
 <script>
-/* ── ナビ：スクロールで背景変化 ── */
-const nav = document.getElementById('main-nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-}, {passive:true});
+/* ナビ背景 */
+const nav=document.getElementById('main-nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80)},{passive:true});
 
-/* ── IntersectionObserver：フェードイン ── */
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-  });
-}, {threshold:0.08, rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.js-inview').forEach((el,i) => {
-  el.style.transitionDelay = (i % 4) * 0.1 + 's';
-  io.observe(el);
-});
+/* スクロールリビール */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*0.1+'s';io.observe(el);});
 
-/* ── フィルター ── */
-document.querySelectorAll('.ftag').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.ftag').forEach(b => b.classList.remove('on'));
+/* フィルター */
+document.querySelectorAll('.ftag').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.ftag').forEach(b=>b.classList.remove('on'));
     btn.classList.add('on');
-    const f = btn.dataset.f;
-    document.querySelectorAll('.work-card').forEach(c => {
-      const show = f === 'all' || c.dataset.cat === f;
-      c.style.display = show ? '' : 'none';
-      if (show && c.classList.contains('card-full')) c.style.gridColumn = '1/-1';
+    const f=btn.dataset.f;
+    document.querySelectorAll('.work-card').forEach(card=>{
+      const show=f==='all'||card.dataset.cat===f;
+      card.style.display=show?'':'none';
+      card.style.gridColumn=''; // CSSクラスに委ねる（card-full は CSS で定義済み）
     });
   });
 });
 
-/* ── ナビアクティブ ── */
-const secs = document.querySelectorAll('[id]');
-const links = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-  let cur = '';
-  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
-  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
-}, {passive:true});
+/* ナビアクティブ */
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});
+  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+},{passive:true});
+
+/* prefers-reduced-motion */
+if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
+}
 </script>
 </body>
 </html>

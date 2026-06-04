@@ -1,0 +1,399 @@
+# ============================================================
+#  Design Prompt: Toyota Premium Minimal
+#  Source abstracted from: toyota.jp
+#  Brand refs: brand.toyota.com / brandpalettes.com/toyota-colors
+#  Reusable for: Automotive, premium corporate, high-end product,
+#                luxury B2C, tech showcase, portfolio premium
+# ============================================================
+
+meta:
+  name: toyota-premium-minimal
+  version: "1.0"
+  description: >
+    力強さ・信頼・革新を軸にしたプレミアムコーポレートデザイン。
+    Toyota Red の情熱的なアクセントとダークネイビー/ブラックの
+    重厚感あるベースで、高級感とモダンさを両立する。
+
+# ------------------------------------------------------------
+#  COLOR PALETTE
+# ------------------------------------------------------------
+colors:
+
+  # ベースカラー（ダーク系・セクション交互）
+  base:
+    background:        "#ffffff"    # ライトセクション基本背景
+    background_alt:    "#f5f5f5"   # 交互セクション：薄グレー
+    background_dark:   "#0f0f0f"   # ダークヒーロー・フッター背景
+    background_dark2:  "#1a1a1a"   # ダークセクション（cards on dark）
+    background_dark3:  "#222222"   # ナビゲーション背景（scroll時）
+    text_primary:      "#111111"   # ライトセクション本文
+    text_on_dark:      "#ffffff"   # ダーク背景上テキスト
+    text_muted_light:  "#666666"   # ライトセクションサブテキスト
+    text_muted_dark:   "rgba(255,255,255,0.65)"  # ダーク上サブテキスト
+
+  # アクセントカラー
+  accent:
+    primary:       "#EB0A1E"       # Toyota Red：CTA・ホバー・強調
+    primary_hover: "#c50818"       # Red hover（15%暗く）
+    primary_light: "rgba(235,10,30,0.08)"  # 薄赤背景（ライトセクション）
+
+  # グラデーション
+  gradients:
+    hero_overlay:
+      type: linear
+      angle: 180deg
+      stops:
+        - color: "rgba(0,0,0,0.0)"
+          position: "0%"
+        - color: "rgba(0,0,0,0.65)"
+          position: "100%"
+      usage: "ヒーロー画像（車の写真）上のオーバーレイ"
+    dark_fade:
+      type: linear
+      angle: 90deg
+      stops:
+        - color: "rgba(15,15,15,0.95)"
+          position: "0%"
+        - color: "rgba(15,15,15,0.4)"
+          position: "100%"
+      usage: "ダークセクション左テキストエリアのグラデ"
+    red_accent:
+      type: linear
+      angle: 135deg
+      stops:
+        - color: "#EB0A1E"
+          position: "0%"
+        - color: "#ff2d3e"
+          position: "100%"
+      usage: "CTAボタン・バッジ・強調ライン"
+
+  # シャドウ
+  shadows:
+    card_light:   "0 4px 24px rgba(0,0,0,0.08)"
+    card_hover:   "0 12px 48px rgba(0,0,0,0.18)"
+    card_dark:    "0 4px 24px rgba(0,0,0,0.4)"
+    red_glow:     "0 4px 20px rgba(235,10,30,0.35)"
+
+
+# ------------------------------------------------------------
+#  TYPOGRAPHY
+# ------------------------------------------------------------
+typography:
+
+  # フォントファミリー
+  # Toyota Type は非公開フォント → Web代替: Barlow Condensed（力強い幾何学）
+  fonts:
+    heading:  "'Barlow Condensed', 'Noto Sans JP', sans-serif"
+    heading_alt: "'Barlow', sans-serif"   # 通常ウェイト見出し
+    body:     "'Noto Sans JP', 'Yu Gothic', YuGothic, 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif"
+    mono:     "'JetBrains Mono', 'Courier New', monospace"  # コード用
+
+  # Google Fonts インポート
+  google_fonts_url: >
+    https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap
+
+  # ベースサイズ（1rem = 10px）
+  base_size: "10px"
+
+  # スケール
+  scale:
+    xs:    "1.1rem"    # 11px：キャプション
+    sm:    "1.3rem"    # 13px：メタ情報
+    base:  "1.5rem"    # 15px：本文
+    md:    "1.7rem"    # 17px：リード文
+    lg:    "2.4rem"    # 24px：小見出し
+    xl:    "3.6rem"    # 36px：中見出し
+    xxl:   "5.4rem"    # 54px：大見出し（Barlow Condensed）
+    hero:  "8.0rem"    # 80px：ヒーロー英語タイトル（Barlow Condensed Bold）
+    hero_ja: "3.2rem"  # 32px：ヒーロー日本語サブタイトル
+
+  # ウェイト
+  weights:
+    light:     300
+    regular:   400
+    medium:    500
+    semibold:  600
+    bold:      700
+    extrabold: 800
+
+  # スペーシング
+  letter_spacing:
+    tight:    "-0.02em"   # ヒーロー大見出し
+    normal:   "0.00em"    # 英字本文
+    wide:     "0.05em"    # 日本語本文
+    caps:     "0.18em"    # 全大文字ラベル（SECTION, MODEL等）
+
+  # 行間
+  line_height:
+    hero:   1.0     # ヒーロー見出し（Barlow Condensed）
+    tight:  1.2     # 英字見出し
+    normal: 1.5     # コンパクト本文
+    body:   1.8     # 日本語本文
+    loose:  2.0     # リード文・余裕ある読み物
+
+
+# ------------------------------------------------------------
+#  LAYOUT
+# ------------------------------------------------------------
+layout:
+
+  # コンテナ幅
+  containers:
+    wide:    "1440px"    # フル幅コンテンツ（toyota.jp 標準）
+    content: "1200px"    # 通常コンテンツ
+    text:    "840px"     # 長文テキスト
+    narrow:  "640px"
+
+  # セクション余白
+  section_padding:
+    hero:    "0"          # フルビューポート
+    desktop: "120px 0"   # 標準セクション（toyota.jp は大きめ余白）
+    mobile:  "60px 0"
+
+  # ラッパー内パディング
+  wrapper_padding:
+    desktop: "0 80px"
+    tablet:  "0 40px"
+    mobile:  "0 20px"
+
+  # ヘッダー
+  header:
+    position:       "fixed"
+    height:         "72px"
+    bg_initial:     "transparent"
+    bg_scrolled:    "rgba(15,15,15,0.96)"
+    backdrop_filter: "blur(12px)"
+    z_index:        9999
+    logo_color_initial:  "#ffffff"
+    logo_color_scrolled: "#ffffff"
+    link_color:     "rgba(255,255,255,0.85)"
+    link_hover:     "#EB0A1E"
+
+  # z-index 階層
+  z_index:
+    header:    9999
+    overlay:   10
+    content:   1
+
+  # グリッド
+  grid:
+    columns_desktop: 12
+    gap_desktop:     "32px"
+    gap_mobile:      "16px"
+
+
+# ------------------------------------------------------------
+#  COMPONENTS
+# ------------------------------------------------------------
+components:
+
+  # ── ボタン ──
+  button:
+    primary:
+      background:      "#EB0A1E"
+      color:           "#ffffff"
+      border_radius:   "4px"           # toyota.jp は角ほぼなし〜4px
+      padding:         "14px 40px"
+      font_family:     "heading"
+      font_weight:     700
+      font_size:       "1.5rem"
+      letter_spacing:  "0.08em"
+      text_transform:  "uppercase"
+      transition:      "all 0.2s ease-out"
+      box_shadow:      "0 4px 20px rgba(235,10,30,0.35)"
+      hover_bg:        "#c50818"
+      hover_transform: "translateY(-2px)"
+    ghost:
+      background:    "transparent"
+      color:         "#ffffff"
+      border:        "1.5px solid rgba(255,255,255,0.5)"
+      border_radius: "4px"
+      padding:       "14px 40px"
+      hover_border:  "#EB0A1E"
+      hover_color:   "#EB0A1E"
+    ghost_dark:
+      color:         "#111111"
+      border:        "1.5px solid rgba(0,0,0,0.25)"
+      hover_border:  "#EB0A1E"
+      hover_color:   "#EB0A1E"
+
+  # ── カード ──
+  card:
+    light:
+      background:    "#ffffff"
+      border_radius: "8px"
+      box_shadow:    "0 4px 24px rgba(0,0,0,0.08)"
+      hover_shadow:  "0 12px 48px rgba(0,0,0,0.18)"
+      hover_transform: "translateY(-4px)"
+      transition:    "all 0.3s cubic-bezier(0.25,0.46,0.45,0.94)"
+    dark:
+      background:    "#1a1a1a"
+      border:        "1px solid rgba(255,255,255,0.08)"
+      border_radius: "8px"
+      hover_border:  "rgba(235,10,30,0.5)"
+    image_ratio:     "16 / 9"   # 車の写真用
+    image_hover_scale: 1.04
+
+  # ── セクション区切り ──
+  red_rule:
+    width:  "48px"
+    height: "3px"
+    background: "#EB0A1E"
+    usage: "見出し直下の赤いアクセントライン（toyota.jp 特徴的パターン）"
+
+  # ── バッジ・ラベル ──
+  badge:
+    style: "all-caps small label"
+    font:  "heading"
+    letter_spacing: "0.18em"
+    text_transform: "uppercase"
+    font_size:   "1.1rem"
+    color_on_dark:  "#EB0A1E"
+    color_on_light: "#EB0A1E"
+
+  # ── 区切り線 ──
+  divider:
+    color: "rgba(0,0,0,0.08)"
+    dark:  "rgba(255,255,255,0.08)"
+
+  # ── スキルチップ ──
+  skill_chip:
+    bg_dark:   "#1a1a1a"
+    border:    "1px solid rgba(255,255,255,0.1)"
+    border_hover: "rgba(235,10,30,0.6)"
+    border_radius: "4px"
+
+  # ── フォームボタン ──
+  contact_btn:
+    style: "ghost on dark background"
+    border: "1px solid rgba(255,255,255,0.3)"
+    hover_border: "#EB0A1E"
+    hover_bg: "rgba(235,10,30,0.08)"
+
+
+# ------------------------------------------------------------
+#  ANIMATION & INTERACTION
+# ------------------------------------------------------------
+animation:
+
+  # トランジション
+  transitions:
+    quick:   "all ease-out 0.2s"
+    smooth:  "all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s"
+    reveal:  "opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)"
+
+  # スクロール演出
+  scroll_behavior:
+    - "セクションが viewport に入ると opacity:0 → 1, translateY(40px) → 0"
+    - "ヘッダー背景：scrollY > 80 でダーク背景にフェード"
+    - "ヒーロー：parallax は使わない（重くなるため）"
+
+  # インタラクション原則
+  principles:
+    - "全 hover は 0.2s ease-out で即レスポンス"
+    - "カード hover: translateY(-4px) + shadow 強化"
+    - "ボタン hover: 色変化 + 微妙な translateY(-2px)"
+    - "画像 hover: scale(1.04) / overflow:hidden でクリップ"
+
+
+# ------------------------------------------------------------
+#  IMAGERY & VISUAL LANGUAGE
+# ------------------------------------------------------------
+imagery:
+
+  hero_style:
+    - "大判高品質写真：フルビューポートで贅沢に使う"
+    - "ダークオーバーレイ（グラデーション）でテキストの可読性確保"
+    - "左下 or 中央左にテキストを配置"
+
+  section_pattern:
+    - "ダークヒーロー（#0f0f0f + 写真）"
+    - "→ ホワイトコンテンツセクション"
+    - "→ ライトグレーセクション（#f5f5f5）"
+    - "→ ダークセクション（#1a1a1a）"
+    - "→ ダークフッター（#0f0f0f）"
+
+  icon_style:
+    - "ラインアイコン（細線・白 or 赤）"
+    - "SVG推奨"
+
+  red_line_usage:
+    - "セクション見出しの直下に 48px × 3px の赤ライン"
+    - "これが toyota.jp の最も特徴的なビジュアルパターン"
+
+
+# ------------------------------------------------------------
+#  ATMOSPHERE & TONE
+# ------------------------------------------------------------
+atmosphere:
+
+  keywords:
+    - "力強さ / Power"
+    - "信頼 / Reliability"
+    - "革新 / Innovation"
+    - "プレミアム / Premium"
+    - "精密 / Precision"
+    - "大胆 / Bold"
+
+  tone:
+    formality:   "フォーマル。ブランドとして統一感を重視"
+    energy:      "力強く、自信に満ちている。静的ではなくエネルギッシュ"
+    contrast:    "ダークとライトのセクションを交互に使い、強いコントラストを演出"
+    modernity:   "モダン。未来志向。技術の先進性を感じさせる"
+
+  do:
+    - "ダーク背景を積極的に使い、Premium感を出す"
+    - "Toyota Red (#EB0A1E) は必ずCTAと強調に使う"
+    - "見出し直下に赤いルール（3px）を置く"
+    - "余白を大きく取り、1つ1つのコンテンツを際立たせる"
+    - "Barlow Condensed を見出しに使って力強さを表現"
+    - "セクションのダーク/ライト交互パターンを守る"
+
+  dont:
+    - "背景を白だけにしない（ダークセクションが必須）"
+    - "Toyota Red を多用しない（差し色として節度を守る）"
+    - "丸みすぎるUI（border-radius は 4〜8px まで）"
+    - "可愛い・柔らかい雰囲気のアイコン・フォントを使わない"
+    - "複数のアクセントカラーを混在させない"
+    - "コンテンツを詰め込みすぎない"
+
+
+# ------------------------------------------------------------
+#  RESPONSIVE BREAKPOINTS
+# ------------------------------------------------------------
+breakpoints:
+  mobile:  "max-width: 767px"
+  tablet:  "min-width: 768px"
+  desktop: "min-width: 1024px"
+  wide:    "min-width: 1440px"
+
+  strategy: >
+    モバイルでもプレミアム感を保つ。ヒーローは min-height:100svh で確保。
+    フォントは vw 単位と clamp() を組み合わせて流動的にスケール。
+
+
+# ------------------------------------------------------------
+#  USAGE GUIDE
+# ------------------------------------------------------------
+usage_guide:
+
+  step_1_palette: >
+    --color-red: #EB0A1E / --color-dark: #0f0f0f / --color-bg: #ffffff
+    をCSS変数に設定。ダーク変数と共に :root で一括定義する。
+
+  step_2_typography: >
+    Google Fonts から Barlow Condensed + Noto Sans JP をインポート。
+    html { font-size: 10px } でrem基準を設定。
+    見出しは Barlow Condensed 700 / 800、本文は Noto Sans JP 400。
+
+  step_3_sections: >
+    セクション交互パターン（ダーク/ライト）を必ず守る。
+    hero: dark → section1: light → section2: dark → contact: dark → footer: dark
+
+  step_4_red_rule: >
+    .section-label の直下に <div class="red-rule"></div> (48px × 3px, #EB0A1E) を置く。
+    これがトヨタデザインの最も特徴的なディテール。
+
+  step_5_atmosphere: >
+    atmosphere.do / dont をUIレビュー時のチェックリストとして活用。
+    「力強く・余白たっぷり・赤は節度を守る」が基本方針。
