@@ -20,7 +20,7 @@ function buildNavLinks(): NavLink[] {
     document.querySelectorAll<HTMLAnchorElement>('.nav-links a')
   ).map(el => ({
     element: el,
-    targetId: el.getAttribute('href')?.replace('#', '') ?? '',
+    targetId: el.getAttribute('href')?.slice(1) ?? '',
   }))
 }
 
