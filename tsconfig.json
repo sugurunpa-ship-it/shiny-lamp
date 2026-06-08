@@ -7,12 +7,12 @@
     "noImplicitAny":    true,
     "strictNullChecks": true,
     "lib":              ["ES2020", "DOM", "DOM.Iterable"],
-    "outDir":           "./docs/assets",
+    "outDir":           "./docs/assets", // vite build が使用。tsc は noEmit のため参照されない
     "rootDir":          "./src",
     "declaration":      false,
     "sourceMap":        false,
     "skipLibCheck":     true,
-    "noEmit":           true
+    "noEmit":           true              // 型チェック専用（バンドルは vite build が担当）
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "docs", "dist"]

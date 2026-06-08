@@ -18,6 +18,8 @@ export function initContact(): void {
     const domain = el.dataset.domain
     if (user && domain) {
       el.href = `mailto:${user}@${domain}`
+    } else {
+      console.warn('[contact] .js-mail に data-user / data-domain が未設定です', el)
     }
   })
 }
