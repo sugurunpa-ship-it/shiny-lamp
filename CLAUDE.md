@@ -19,6 +19,7 @@ Antigravity IDE は Claude Code をベースとした AI 支援開発環境で�
 | `performance-guide` | `/performance-guide` | バックエンド・DB・フロントエンドのパフォーマンス最適化ガイド |
 | `git-commit-writer` | `/git-commit-writer` | git diff から Conventional Commits 形式のコミットメッセージを生成 |
 | `code-reviewer` | `/code-reviewer` | バグ・セキュリティ・パフォーマンス・可読性の総合コードレビュー |
+| `review-driven-dev` | `/review-driven-dev` | タスクごとにレビュー観点を洗い出し、セキュリティ・パフォーマンス・可読性の3観点でレビューしながら実装を進める（フロントエンド特化） |
 | `test-writer` | `/test-writer` | pytest / Jest のテストケースを自動生成 |
 | `api-designer` | `/api-designer` | RESTful API 設計・OpenAPI スキーマ生成 |
 | `readme-writer` | `/readme-writer` | リポジトリを解析して README.md を自動生成 |
