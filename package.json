@@ -7,7 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json",
+    "build": "vite build",
+    "build:dev": "tsc --project tsconfig.json",
     "build:watch": "tsc --project tsconfig.json --watch",
     "typecheck": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"

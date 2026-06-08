@@ -4,24 +4,12 @@
  */
 
 import type { NavScrollConfig, NavLink, ObservedSection } from '../types/portfolio.js'
+import { requireElement } from '../utils/dom.js'
 
 /** 設定定数 — マジックナンバー排除 */
 const NAV_CONFIG: NavScrollConfig = {
   scrollThreshold: 80,   // px
   activeOffset:   120,   // px
-}
-
-/**
- * DOM要素を安全に取得する（null チェック込み）
- * @throws HTMLElement が見つからない場合に Error
- */
-function requireElement<T extends HTMLElement>(
-  selector: string,
-  context: ParentNode = document
-): T {
-  const el = context.querySelector<T>(selector)
-  if (!el) throw new Error(`Element not found: "${selector}"`)
-  return el
 }
 
 /**

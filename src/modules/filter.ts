@@ -5,11 +5,16 @@
 
 import type { FilterCategory, WorkCard } from '../types/portfolio.js'
 
-/** FilterCategory のガード関数（XSS・型安全） */
+/**
+ * FilterCategory のガード関数（XSS・型安全）
+ * data-f / data-cat 属性の値を許可リストで検証し、
+ * 不正な文字列が実行パスに混入することを防ぐ。
+ * 許可リストは FilterCategory 型と完全に同期すること。
+ */
 function isFilterCategory(value: unknown): value is FilterCategory {
   return (
     typeof value === 'string' &&
-    ['all', 'game', 'tool', 'cont'].includes(value)
+    (['all', 'game', 'tool', 'content'] as const).includes(value as FilterCategory)
   )
 }
 

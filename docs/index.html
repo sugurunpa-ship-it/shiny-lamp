@@ -9,198 +9,32 @@
 <meta property="og:description" content="AIでアイデアをプロダクトに変える">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sugurunpa-ship-it.github.io/shiny-lamp/">
-<meta name="theme-color" content="#0f0f0f">
-<meta name="robots" content="index, follow">
-<link rel="icon" type="image/svg+xml" href="./favicon.svg">
-<meta property="og:image:alt" content="Antigravity IDE — AIで開発を自動化する開発者のポートフォリオ">
-<meta http-equiv="Content-Security-Policy"
-      content="default-src 'self';
-               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-               font-src https://fonts.gstatic.com;
-               img-src 'self' data: https://sugurunpa-ship-it.github.io;
-               script-src 'self'">
 <meta property="og:image" content="https://sugurunpa-ship-it.github.io/shiny-lamp/images/image-1780011671926.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Antigravity IDE — AIで開発を自動化する開発者のポートフォリオ">
+<meta name="theme-color" content="#0f0f0f">
+<meta name="robots" content="index, follow">
 <link rel="canonical" href="https://sugurunpa-ship-it.github.io/shiny-lamp/">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<!--
+  CSP: style-src から 'unsafe-inline' を除去済み
+  - CSS は ./assets/style.css に外部化
+  - インライン style= 属性はすべて CSS クラスに置き換え済み
+  - フォント読み込みの onload ハックを廃止（script-src 'self' 違反の可能性があったため）
+-->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               style-src 'self' https://fonts.googleapis.com;
+               font-src https://fonts.gstatic.com;
+               img-src 'self' data: https://sugurunpa-ship-it.github.io;
+               script-src 'self'">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet"></noscript>
-<style>
-/* ═══════════════════════════════════════════
-   DESIGN SYSTEM — toyota-premium-minimal
-   Abstracted from: toyota.jp
-═══════════════════════════════════════════ */
-/* SKIP LINK — キーボードナビゲーション用 */
-.skip-link{position:absolute;top:-100%;left:16px;padding:10px 20px;background:var(--color-red);color:#fff;z-index:99999;border-radius:0 0 4px 4px;font-family:var(--font-b);font-size:1.4rem;font-weight:700;transition:top .2s}
-.skip-link:focus{top:0}
-:root {
-  --color-bg:        #ffffff;
-  --color-bg-alt:    #f5f5f5;
-  --color-dark:      #0f0f0f;
-  --color-dark2:     #1a1a1a;
-  --color-dark3:     #222222;
-  --color-text:      #111111;
-  --color-on-dark:   #ffffff;
-  --color-muted:     #666666;
-  --color-muted-dark: rgba(255,255,255,0.65);
-  --color-red:       #EB0A1E;
-  --color-red-hover: #c50818;
-  --color-red-light: rgba(235,10,30,0.08);
-  --color-border:    rgba(0,0,0,0.08);
-  --color-border-dark: rgba(255,255,255,0.08);
-  --shadow-card:    0 4px 24px rgba(0,0,0,0.08);
-  --shadow-hover:   0 12px 48px rgba(0,0,0,0.18);
-  --shadow-red:     0 4px 20px rgba(235,10,30,0.35);
-  --font-h: 'Barlow Condensed','Noto Sans JP',sans-serif;
-  --font-b: 'Noto Sans JP','Yu Gothic',YuGothic,'Hiragino Kaku Gothic Pro','Meiryo',sans-serif;
-  --container: 1200px;
-  --wrap-x: 80px;
-  --section-py: 120px;
-  --ease: cubic-bezier(0.25,0.46,0.45,0.94);
-  --ease-quick: all ease-out 0.2s;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:10px;scroll-behavior:smooth}
-body{font-family:var(--font-b);font-size:1.5rem;color:var(--color-text);background:var(--color-bg);line-height:1.8;letter-spacing:.03em;overflow-x:hidden}
-img{display:block;max-width:100%}
-a{text-decoration:none;color:inherit}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--wrap-x);background:transparent;transition:background .4s var(--ease)}
-nav.scrolled{background:rgba(15,15,15,.96);backdrop-filter:blur(12px)}
-.nav-logo{font-family:var(--font-h);font-size:2.0rem;font-weight:700;letter-spacing:.06em;color:#fff;display:flex;align-items:center;gap:10px}
-.nav-logo-mark{width:28px;height:28px;border-radius:3px;background:var(--color-red);display:grid;place-items:center;font-size:1.3rem;color:#fff;flex-shrink:0}
-.nav-links{display:flex;gap:36px;list-style:none}
-.nav-links a{font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8);position:relative;padding-bottom:4px;transition:var(--ease-quick)}
-.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--color-red);transition:width .25s var(--ease)}
-.nav-links a:hover{color:#fff}
-.nav-links a:hover::after,.nav-links a.active::after{width:100%}
-
-/* HERO */
-#hero{height:100vh;min-height:600px;position:relative;overflow:hidden;display:flex;align-items:flex-end;background:var(--color-dark)}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(235,10,30,.08) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 10% 80%,rgba(235,10,30,.05) 0%,transparent 50%)}
-.hero-grid{position:absolute;inset:0;opacity:.04;background-image:linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px);background-size:80px 80px}
-.hero-deco{position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-family:var(--font-h);font-size:32rem;font-weight:800;line-height:1;color:rgba(235,10,30,.04);user-select:none;pointer-events:none;white-space:nowrap}
-.hero-inner{position:relative;z-index:2;padding:0 var(--wrap-x) 80px;max-width:900px}
-.section-label{font-family:'Barlow',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--color-red);margin-bottom:14px;display:flex;align-items:center;gap:12px}
-.section-label::before{content:'';width:32px;height:2px;background:var(--color-red)}
-.hero-en{font-family:var(--font-h);font-size:clamp(5.4rem,8vw,10rem);font-weight:800;line-height:.92;letter-spacing:-.02em;color:#fff;margin-bottom:16px}
-.hero-en .red{color:var(--color-red)}
-.hero-ja{font-size:2.2rem;font-weight:700;color:rgba(255,255,255,.88);margin-bottom:24px;line-height:1.5}
-.hero-sub{font-size:1.5rem;color:rgba(255,255,255,.65);max-width:560px;line-height:1.9;margin-bottom:44px}
-.hero-sub strong{color:rgba(255,255,255,.9)}
-.hero-btns{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 40px;background:var(--color-red);color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;box-shadow:var(--shadow-red);transition:var(--ease-quick)}
-.btn-primary:hover{background:var(--color-red-hover);transform:translateY(-2px);box-shadow:0 8px 28px rgba(235,10,30,.45)}
-.btn-ghost-dark{display:inline-flex;align-items:center;gap:10px;padding:13px 36px;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:var(--ease-quick)}
-.btn-ghost-dark:hover{border-color:var(--color-red);color:var(--color-red)}
-.scroll-ind{position:absolute;right:var(--wrap-x);bottom:36px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'Barlow',sans-serif;font-size:1.0rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);writing-mode:vertical-rl}
-.scroll-line{width:1px;height:60px;background:rgba(255,255,255,.15);position:relative;overflow:hidden}
-.scroll-line::after{content:'';position:absolute;top:-100%;left:0;right:0;height:100%;background:var(--color-red);animation:scroll-anim 2s var(--ease) infinite}
-@keyframes scroll-anim{to{top:100%}}
-
-/* SECTION BASE */
-.section{padding:var(--section-py) 0}
-.section--light{background:var(--color-bg)}
-.section--alt{background:var(--color-bg-alt)}
-.section--dark{background:var(--color-dark2)}
-.section--darkest{background:var(--color-dark)}
-.wrap{max-width:var(--container);margin:0 auto;padding:0 var(--wrap-x)}
-.sec-head{margin-bottom:64px}
-.sec-label{font-family:'Barlow',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--color-red);margin-bottom:10px}
-.red-rule{width:48px;height:3px;background:var(--color-red);margin:10px 0 18px}
-.sec-en{font-family:var(--font-h);font-size:5.4rem;font-weight:800;line-height:1.0;letter-spacing:-.01em;color:var(--color-text);margin-bottom:8px}
-.sec-en--dark{color:var(--color-on-dark)}
-.sec-ja{font-size:2.0rem;font-weight:700;color:var(--color-text);margin-bottom:12px}
-.sec-ja--dark{color:var(--color-on-dark)}
-.sec-desc{font-size:1.5rem;color:var(--color-muted);max-width:520px;line-height:1.85}
-.sec-desc--dark{color:var(--color-muted-dark)}
-.divider{height:1px;max-width:var(--container);margin:0 auto;background:var(--color-border)}
-.divider--dark{height:1px;background:var(--color-border-dark)}
-
-/* WORKS */
-.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
-.ftag{padding:8px 24px;border-radius:4px;font-family:'Barlow',sans-serif;font-size:1.2rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--color-border);color:var(--color-muted);background:transparent;cursor:pointer;transition:var(--ease-quick)}
-.ftag.on,.ftag:hover{background:var(--color-red-light);color:var(--color-red);border-color:rgba(235,10,30,.35)}
-.works-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-.card-full{grid-column:1/-1}
-.work-card{background:var(--color-bg);border:1px solid var(--color-border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-card);transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s}
-.work-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);border-color:rgba(235,10,30,.3)}
-.card-img{position:relative;width:100%;padding-bottom:62.5%;overflow:hidden;background:var(--color-bg-alt)}
-.card-full .card-img{padding-bottom:38%}
-.card-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .5s var(--ease)}
-.work-card:hover .card-img img{transform:scale(1.04)}
-.card-cat{position:absolute;top:14px;left:14px;z-index:2;padding:5px 14px;border-radius:2px;font-family:'Barlow',sans-serif;font-size:1.0rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(15,15,15,.85);color:#fff;backdrop-filter:blur(6px)}
-.cat-game{border-left:3px solid #a855f7}
-.cat-tool{border-left:3px solid #3b82f6}
-.cat-cont{border-left:3px solid var(--color-red)}
-.card-body{padding:24px 28px 28px}
-.card-title{font-family:var(--font-h);font-size:2.0rem;font-weight:700;margin-bottom:10px;color:var(--color-text);letter-spacing:.02em}
-.card-desc{font-size:1.4rem;color:var(--color-muted);line-height:1.75}
-.card-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.card-tag{font-family:'Barlow',sans-serif;font-size:1.0rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:2px;background:var(--color-red-light);color:var(--color-red);border:1px solid rgba(235,10,30,.25)}
-
-/* SKILLS */
-.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.skill-chip{background:var(--color-dark3);border:1px solid var(--color-border-dark);border-radius:4px;padding:18px 20px;display:flex;align-items:center;gap:14px;font-size:1.4rem;font-weight:500;color:rgba(255,255,255,.85);transition:var(--ease-quick)}
-.skill-chip:hover{border-color:rgba(235,10,30,.55);background:rgba(235,10,30,.05)}
-.skill-chip .ic{font-size:2.0rem;flex-shrink:0}
-.skill-dots{margin-left:auto;display:flex;gap:4px;align-items:center}
-.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.15)}
-.dot.on{background:var(--color-red)}
-
-/* CONTACT */
-.contact-inner{max-width:680px;margin:0 auto;text-align:center;border:1px solid var(--color-border-dark);border-radius:8px;padding:64px 56px;position:relative;overflow:hidden;background:rgba(255,255,255,.02)}
-.contact-inner::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--color-red)}
-.contact-en{font-family:var(--font-h);font-size:4.8rem;font-weight:800;color:#fff;margin-bottom:4px;letter-spacing:-.01em}
-.contact-ja{font-size:1.8rem;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:24px}
-.contact-sub{font-size:1.5rem;color:var(--color-muted-dark);margin-bottom:40px;line-height:1.9}
-.social-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.social-btn{padding:11px 26px;border-radius:4px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);background:transparent;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.06em;display:inline-flex;align-items:center;gap:8px;transition:var(--ease-quick)}
-.social-btn:hover{border-color:var(--color-red);color:var(--color-red);background:rgba(235,10,30,.06);transform:translateY(-2px)}
-
-/* FOOTER */
-footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark);padding:36px var(--wrap-x);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.footer-copy{font-size:1.3rem;color:rgba(255,255,255,.3);font-family:'Barlow',sans-serif;letter-spacing:.05em}
-.footer-copy span{color:var(--color-red)}
-.footer-badges{display:flex;gap:12px;align-items:center}
-.footer-badge{padding:4px 14px;border-radius:2px;font-family:'Barlow',sans-serif;font-size:1.0rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1)}
-
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-.reveal.visible{opacity:1;transform:none}
-/* prefers-reduced-motion */
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-  .scroll-line::after{animation:none}
-  .reveal{opacity:1;transform:none}
-}
-
-/* RESPONSIVE */
-@media(max-width:767px){
-  :root{--wrap-x:20px;--section-py:60px}
-  nav{padding:0 var(--wrap-x);height:60px}
-  .nav-links{gap:20px}
-  .nav-links a{font-size:1.1rem}
-  .hero-inner{padding:0 var(--wrap-x) 60px}
-  .hero-en{font-size:clamp(4.0rem,12vw,7rem)}
-  .hero-ja{font-size:1.8rem}
-  .hero-deco,.scroll-ind{display:none}
-  .sec-en{font-size:3.6rem}
-  .works-grid{grid-template-columns:1fr}
-  .card-full{grid-column:auto}
-  .card-full .card-img{padding-bottom:62.5%}
-  .skills-grid{grid-template-columns:1fr 1fr}
-  .contact-inner{padding:44px 24px}
-  footer{flex-direction:column;text-align:center}
-}
-@media(min-width:768px) and (max-width:1023px){
-  :root{--wrap-x:40px;--section-py:80px}
-  .sec-en{font-size:4.2rem}
-}
-</style>
+<!-- Google Fonts: onload ハックを廃止し <link rel="stylesheet"> で直接読み込む
+     理由: onload 属性は script-src 'self'（unsafe-inline なし）で実行がブロックされる可能性があるため -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
 
@@ -257,16 +91,19 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
       <p class="sec-ja">制作実績</p>
       <p class="sec-desc">Claude Code を活用して制作したゲーム・コンテンツ・開発ツールの一覧です。</p>
     </div>
+    <!-- aria-pressed で支援技術（スクリーンリーダー）に選択状態を通知 -->
     <div class="filter-bar reveal" role="group" aria-label="カテゴリフィルター">
-      <button class="ftag on" data-f="all"  aria-pressed="true">All</button>
-      <button class="ftag" data-f="game"    aria-pressed="false">Game</button>
-      <button class="ftag" data-f="tool"    aria-pressed="false">Dev Tool</button>
-      <button class="ftag" data-f="cont"    aria-pressed="false">Content</button>
+      <button class="ftag on" data-f="all"     aria-pressed="true">All</button>
+      <button class="ftag" data-f="game"       aria-pressed="false">Game</button>
+      <button class="ftag" data-f="tool"       aria-pressed="false">Dev Tool</button>
+      <button class="ftag" data-f="content"    aria-pressed="false">Content</button>
     </div>
     <div class="works-grid">
       <article class="work-card reveal" data-cat="game">
         <div class="card-img">
-          <img src="images/image-1780011618012.png" alt="ぷよぷよ — Claude Codeで実装したブラウザパズルゲーム" loading="lazy">
+          <img src="images/image-1780011618012.png"
+               alt="ぷよぷよ — Claude Codeで実装したブラウザパズルゲーム"
+               loading="lazy">
           <span class="card-cat cat-game">Game</span>
         </div>
         <div class="card-body">
@@ -279,7 +116,9 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
       </article>
       <article class="work-card reveal" data-cat="tool">
         <div class="card-img">
-          <img src="images/image-1780011671926.png" alt="Antigravity IDE — Claude Code カスタム開発環境" loading="lazy">
+          <img src="images/image-1780011671926.png"
+               alt="Antigravity IDE — Claude Code カスタム開発環境"
+               loading="lazy">
           <span class="card-cat cat-tool">Dev Tool</span>
         </div>
         <div class="card-body">
@@ -290,9 +129,14 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
           </div>
         </div>
       </article>
-      <article class="work-card card-full reveal" data-cat="cont">
+      <!-- data-cat="content"（旧: "cont"）— FilterCategory の可読性改善のため統一 -->
+      <article class="work-card card-full reveal" data-cat="content">
         <div class="card-img">
-          <img src="images/article.png" alt="SEOブログ記事 — 不動産業界の進化をAIが自動執筆" loading="lazy" style="object-position:top left">
+          <!-- img-pos-top-left クラスで object-position を制御（inline style を廃止） -->
+          <img src="images/article.png"
+               alt="SEOブログ記事 — 不動産業界の進化をAIが自動執筆"
+               loading="lazy"
+               class="img-pos-top-left">
           <span class="card-cat cat-cont">Content</span>
         </div>
         <div class="card-body">
@@ -341,7 +185,8 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
   <div class="wrap">
     <div class="contact-inner reveal">
       <h2 class="contact-en">Contact</h2>
-      <div class="red-rule" aria-hidden="true" style="margin:10px auto 18px;"></div>
+      <!-- red-rule--center クラスで margin を制御（inline style を廃止） -->
+      <div class="red-rule red-rule--center" aria-hidden="true"></div>
       <p class="contact-ja">お問い合わせ</p>
       <p class="contact-sub">お仕事のご依頼・コラボレーションはこちらからどうぞ。<br>Claude Code を使った高速開発・業務自動化のご相談もお気軽に。</p>
       <div class="social-row">
@@ -368,7 +213,7 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
   </div>
 </footer>
 
-<!-- TypeScript ビルド成果物（src/ → docs/assets/main.js） -->
+<!-- Vite バンドル済み成果物（src/ → vite build → docs/assets/main.js） -->
 <script type="module" src="./assets/main.js"></script>
 </body>
 </html>

@@ -3,8 +3,11 @@
  * toyota-premium-minimal デザインシステム準拠
  */
 
-/** Works フィルターカテゴリ（マジックストリング排除） */
-export type FilterCategory = 'all' | 'game' | 'tool' | 'cont';
+/**
+ * Works フィルターカテゴリ（マジックストリング排除）
+ * 'cont' → 'content' に変更: 略語より完全な単語で意図を明示
+ */
+export type FilterCategory = 'all' | 'game' | 'tool' | 'content';
 
 /** Works カード1件のデータ */
 export interface WorkCard {
