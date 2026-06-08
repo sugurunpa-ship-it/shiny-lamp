@@ -9,14 +9,17 @@
 import { initNavigation } from './modules/navigation.js'
 import { initFilter }     from './modules/filter.js'
 import { initReveal }     from './modules/reveal.js'
+import { initContact }    from './modules/contact.js'
 
 function bootstrap(): void {
   // 各機能の初期化（クリーンアップ関数を保持）
   const cleanupNav    = initNavigation()
   const cleanupReveal = initReveal()
   initFilter()
+  initContact()   // mailto: リンクをスパム対策のため JS で組み立て
 
-  // ページ離脱時のクリーンアップ（SPA化・テスト対応）
+  // ページ離脱時のクリーンアップ
+  // 注意: 静的サイトでは通常不要だが、SPA 化・テスト環境向けに実装を維持
   window.addEventListener('beforeunload', () => {
     cleanupNav()
     cleanupReveal()

@@ -3,28 +3,30 @@
  * 責務: Works セクションのカテゴリフィルター
  */
 
-import type { FilterCategory, WorkCard } from '../types/portfolio.js'
+import { FILTER_CATEGORIES, type FilterCategory, type WorkCard } from '../types/portfolio.js'
 
 /**
  * FilterCategory のガード関数（XSS・型安全）
- * data-f / data-cat 属性の値を許可リストで検証し、
- * 不正な文字列が実行パスに混入することを防ぐ。
- * 許可リストは FilterCategory 型と完全に同期すること。
+ *
+ * 許可リストは portfolio.ts の FILTER_CATEGORIES から自動参照。
+ * FilterCategory 型を追加した際にここを変更する必要はない。
  */
 function isFilterCategory(value: unknown): value is FilterCategory {
   return (
     typeof value === 'string' &&
-    (['all', 'game', 'tool', 'content'] as const).includes(value as FilterCategory)
+    (FILTER_CATEGORIES as readonly string[]).includes(value)
   )
 }
 
 /**
  * カードの表示/非表示を切り替える（単一責任）
- * style.display を直接操作し、gridColumn はCSSクラスに委ねる
+ *
+ * CSS クラス .card-hidden で制御する:
+ * - style.display の直接操作はグリッドレイアウトと競合する可能性がある
+ * - classList.toggle はべき等で複数回呼んでも安全
  */
 function setCardVisibility(card: HTMLElement, visible: boolean): void {
-  card.style.display = visible ? '' : 'none'
-  card.style.gridColumn = ''  // CSSクラス (.card-full) に委ねる
+  card.classList.toggle('card-hidden', !visible)
 }
 
 /**

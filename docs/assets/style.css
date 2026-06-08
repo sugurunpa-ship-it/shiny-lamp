@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
    DESIGN SYSTEM — toyota-premium-minimal
-   Abstracted from: toyota.jp
+   Inspired by toyota-premium-minimal design style
    外部化理由: CSP style-src から 'unsafe-inline' を除去するため
 ═══════════════════════════════════════════ */
 
@@ -32,7 +32,8 @@
   --wrap-x: 80px;
   --section-py: 120px;
   --ease: cubic-bezier(0.25,0.46,0.45,0.94);
-  --ease-quick: all ease-out 0.2s;
+  /* L-1: transition ショートハンド値として命名を統一（旧: --ease-quick） */
+  --transition-quick: all ease-out 0.2s;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:10px;scroll-behavior:smooth}
@@ -46,7 +47,7 @@ nav.scrolled{background:rgba(15,15,15,.96);backdrop-filter:blur(12px)}
 .nav-logo{font-family:var(--font-h);font-size:2.0rem;font-weight:700;letter-spacing:.06em;color:#fff;display:flex;align-items:center;gap:10px}
 .nav-logo-mark{width:28px;height:28px;border-radius:3px;background:var(--color-red);display:grid;place-items:center;font-size:1.3rem;color:#fff;flex-shrink:0}
 .nav-links{display:flex;gap:36px;list-style:none}
-.nav-links a{font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8);position:relative;padding-bottom:4px;transition:var(--ease-quick)}
+.nav-links a{font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8);position:relative;padding-bottom:4px;transition:var(--transition-quick)}
 .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--color-red);transition:width .25s var(--ease)}
 .nav-links a:hover{color:#fff}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%}
@@ -65,9 +66,9 @@ nav.scrolled{background:rgba(15,15,15,.96);backdrop-filter:blur(12px)}
 .hero-sub{font-size:1.5rem;color:rgba(255,255,255,.65);max-width:560px;line-height:1.9;margin-bottom:44px}
 .hero-sub strong{color:rgba(255,255,255,.9)}
 .hero-btns{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 40px;background:var(--color-red);color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;box-shadow:var(--shadow-red);transition:var(--ease-quick)}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 40px;background:var(--color-red);color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;box-shadow:var(--shadow-red);transition:var(--transition-quick)}
 .btn-primary:hover{background:var(--color-red-hover);transform:translateY(-2px);box-shadow:0 8px 28px rgba(235,10,30,.45)}
-.btn-ghost-dark{display:inline-flex;align-items:center;gap:10px;padding:13px 36px;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:var(--ease-quick)}
+.btn-ghost-dark{display:inline-flex;align-items:center;gap:10px;padding:13px 36px;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:var(--transition-quick)}
 .btn-ghost-dark:hover{border-color:var(--color-red);color:var(--color-red)}
 .scroll-ind{position:absolute;right:var(--wrap-x);bottom:36px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'Barlow',sans-serif;font-size:1.0rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);writing-mode:vertical-rl}
 .scroll-line{width:1px;height:60px;background:rgba(255,255,255,.15);position:relative;overflow:hidden}
@@ -86,6 +87,8 @@ nav.scrolled{background:rgba(15,15,15,.96);backdrop-filter:blur(12px)}
 .red-rule{width:48px;height:3px;background:var(--color-red);margin:10px 0 18px}
 /* センター揃えのred-rule（Contact セクション用）— inline style を廃止 */
 .red-rule--center{margin:10px auto 18px}
+/* M-3: filter.ts の setCardVisibility が classList.toggle で制御するクラス */
+.card-hidden{display:none}
 .sec-en{font-family:var(--font-h);font-size:5.4rem;font-weight:800;line-height:1.0;letter-spacing:-.01em;color:var(--color-text);margin-bottom:8px}
 .sec-en--dark{color:var(--color-on-dark)}
 .sec-ja{font-size:2.0rem;font-weight:700;color:var(--color-text);margin-bottom:12px}
@@ -97,7 +100,7 @@ nav.scrolled{background:rgba(15,15,15,.96);backdrop-filter:blur(12px)}
 
 /* WORKS */
 .filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
-.ftag{padding:8px 24px;border-radius:4px;font-family:'Barlow',sans-serif;font-size:1.2rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--color-border);color:var(--color-muted);background:transparent;cursor:pointer;transition:var(--ease-quick)}
+.ftag{padding:8px 24px;border-radius:4px;font-family:'Barlow',sans-serif;font-size:1.2rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--color-border);color:var(--color-muted);background:transparent;cursor:pointer;transition:var(--transition-quick)}
 .ftag.on,.ftag:hover{background:var(--color-red-light);color:var(--color-red);border-color:rgba(235,10,30,.35)}
 .works-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 .card-full{grid-column:1/-1}
@@ -121,7 +124,7 @@ nav.scrolled{background:rgba(15,15,15,.96);backdrop-filter:blur(12px)}
 
 /* SKILLS */
 .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.skill-chip{background:var(--color-dark3);border:1px solid var(--color-border-dark);border-radius:4px;padding:18px 20px;display:flex;align-items:center;gap:14px;font-size:1.4rem;font-weight:500;color:rgba(255,255,255,.85);transition:var(--ease-quick)}
+.skill-chip{background:var(--color-dark3);border:1px solid var(--color-border-dark);border-radius:4px;padding:18px 20px;display:flex;align-items:center;gap:14px;font-size:1.4rem;font-weight:500;color:rgba(255,255,255,.85);transition:var(--transition-quick)}
 .skill-chip:hover{border-color:rgba(235,10,30,.55);background:rgba(235,10,30,.05)}
 .skill-chip .ic{font-size:2.0rem;flex-shrink:0}
 .skill-dots{margin-left:auto;display:flex;gap:4px;align-items:center}
@@ -135,7 +138,7 @@ nav.scrolled{background:rgba(15,15,15,.96);backdrop-filter:blur(12px)}
 .contact-ja{font-size:1.8rem;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:24px}
 .contact-sub{font-size:1.5rem;color:var(--color-muted-dark);margin-bottom:40px;line-height:1.9}
 .social-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.social-btn{padding:11px 26px;border-radius:4px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);background:transparent;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.06em;display:inline-flex;align-items:center;gap:8px;transition:var(--ease-quick)}
+.social-btn{padding:11px 26px;border-radius:4px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);background:transparent;font-family:'Barlow',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.06em;display:inline-flex;align-items:center;gap:8px;transition:var(--transition-quick)}
 .social-btn:hover{border-color:var(--color-red);color:var(--color-red);background:rgba(235,10,30,.06);transform:translateY(-2px)}
 
 /* FOOTER */
@@ -146,7 +149,8 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
 .footer-badge{padding:4px 14px;border-radius:2px;font-family:'Barlow',sans-serif;font-size:1.0rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1)}
 
 /* REVEAL */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+/* M-5: transition-delay は JS が --reveal-delay カスタムプロパティで設定 */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--reveal-delay,0s)}
 .reveal.visible{opacity:1;transform:none}
 
 /* prefers-reduced-motion */

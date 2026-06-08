@@ -43,6 +43,11 @@ function updateNavBackground(nav: HTMLElement): void {
 
 /**
  * 現在のスクロール位置に基づいてアクティブなナビリンクを更新する
+ *
+ * getBoundingClientRect() + scrollY を使う理由:
+ * offsetTop は「最も近い positioned 親」からの相対値のため、
+ * 遅延読み込み後のリフローや position 変更でズレが生じる。
+ * getBoundingClientRect() は常にビューポート基準の動的な値を返す。
  */
 function updateActiveLink(
   sections: ObservedSection[],
@@ -51,7 +56,8 @@ function updateActiveLink(
   let currentId = ''
 
   for (const { element, id } of sections) {
-    if (window.scrollY >= element.offsetTop - NAV_CONFIG.activeOffset) {
+    const top = element.getBoundingClientRect().top + window.scrollY
+    if (window.scrollY >= top - NAV_CONFIG.activeOffset) {
       currentId = id
     }
   }
@@ -70,13 +76,24 @@ export function initNavigation(): () => void {
   const navLinks = buildNavLinks()
   const sections = buildSections()
 
+  // rAF で間引き: 連続スクロールイベントを1フレーム1回に制限し
+  // getBoundingClientRect() による Layout 再計算コストを抑える
+  let rafId = 0
+
   const handleScroll = (): void => {
-    updateNavBackground(nav)
-    updateActiveLink(sections, navLinks)
+    if (rafId) return
+    rafId = requestAnimationFrame(() => {
+      updateNavBackground(nav)
+      updateActiveLink(sections, navLinks)
+      rafId = 0
+    })
   }
 
   window.addEventListener('scroll', handleScroll, { passive: true })
 
   // クリーンアップ関数を返す（テスト・SPA対応）
-  return () => window.removeEventListener('scroll', handleScroll)
+  return () => {
+    window.removeEventListener('scroll', handleScroll)
+    if (rafId) cancelAnimationFrame(rafId)
+  }
 }

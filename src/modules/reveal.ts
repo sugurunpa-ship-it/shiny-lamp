@@ -57,7 +57,9 @@ export function initReveal(): () => void {
   )
 
   elements.forEach((el, i) => {
-    el.style.transitionDelay = calcDelay(i, REVEAL_CONFIG)
+    // CSS カスタムプロパティ経由で遅延を設定
+    // transitionDelay に直接書くよりも CSS 側で一元管理できる
+    el.style.setProperty('--reveal-delay', calcDelay(i, REVEAL_CONFIG))
     observer.observe(el)
   })
 

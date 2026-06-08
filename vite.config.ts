@@ -13,7 +13,9 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   build: {
     outDir: 'docs/assets',
-    // style.css・favicon.svg・images/ を保持しつつ旧 tsc 出力は上書き
+    // docs/assets/ には Vite 管理外の style.css が存在するため true にできない。
+    // 旧成果物が累積しないよう、main.js の更新日時を定期確認すること。
+    // 理想は outDir を dist/ に分離し、デプロイ時に docs/ へコピーする構成。
     emptyOutDir: false,
     // Vite 8 では esbuild は別途インストール必須 → デフォルト (oxc) を使用
     minify: true,

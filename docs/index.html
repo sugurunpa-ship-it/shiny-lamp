@@ -27,9 +27,9 @@
       content="default-src 'self';
                style-src 'self' https://fonts.googleapis.com;
                font-src https://fonts.gstatic.com;
-               img-src 'self' data: https://sugurunpa-ship-it.github.io;
+               img-src 'self' data: https://sugurunpa-ship-it.github.io/shiny-lamp/;
                script-src 'self'">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Google Fonts: onload ハックを廃止し <link rel="stylesheet"> で直接読み込む
      理由: onload 属性は script-src 'self'（unsafe-inline なし）で実行がブロックされる可能性があるため -->
@@ -190,12 +190,11 @@
       <p class="contact-ja">お問い合わせ</p>
       <p class="contact-sub">お仕事のご依頼・コラボレーションはこちらからどうぞ。<br>Claude Code を使った高速開発・業務自動化のご相談もお気軽に。</p>
       <div class="social-row">
-        <!-- TODO: 実際の Twitter/X アカウント URL に変更してください (例: https://twitter.com/yourhandle) -->
-        <a class="social-btn" href="https://twitter.com/" aria-label="Twitter/X" target="_blank" rel="noopener noreferrer">𝕏 Twitter/X</a>
-        <!-- TODO: 実際の LinkedIn プロフィール URL に変更してください (例: https://linkedin.com/in/yourname) -->
-        <a class="social-btn" href="https://linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
+        <!-- Twitter/X・LinkedIn は実際のアカウント URL が決まり次第追加してください -->
         <a class="social-btn" href="https://github.com/sugurunpa-ship-it" aria-label="GitHub" target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
-        <a class="social-btn" href="mailto:sugurunpa@hotmail.com" aria-label="メールを送る">✉️ Email</a>
+        <!-- H-1: mailto はスパムボット対策のため JS (contact.ts) が data-* から組み立てる -->
+        <a class="social-btn js-mail" aria-label="メールを送る"
+           data-user="sugurunpa" data-domain="hotmail.com">✉️ Email</a>
       </div>
     </div>
   </div>

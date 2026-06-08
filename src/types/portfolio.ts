@@ -6,8 +6,13 @@
 /**
  * Works フィルターカテゴリ（マジックストリング排除）
  * 'cont' → 'content' に変更: 略語より完全な単語で意図を明示
+ *
+ * FILTER_CATEGORIES が唯一のソース・オブ・トゥルース。
+ * isFilterCategory() の許可リストはここから自動導出されるため
+ * 型定義とランタイムバリデーションが常に一致する。
  */
-export type FilterCategory = 'all' | 'game' | 'tool' | 'content';
+export const FILTER_CATEGORIES = ['all', 'game', 'tool', 'content'] as const
+export type FilterCategory = typeof FILTER_CATEGORIES[number]
 
 /** Works カード1件のデータ */
 export interface WorkCard {
