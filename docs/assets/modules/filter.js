@@ -17,10 +17,15 @@ function setCardVisibility(card, visible) {
 }
 /**
  * フィルターボタンのアクティブ状態を更新する（単一責任）
+ * aria-pressed を同期して支援技術（スクリーンリーダー等）に現在状態を通知する
  */
 function updateFilterButtons(buttons, activeBtn) {
-    buttons.forEach(b => b.classList.remove('on'));
+    buttons.forEach(b => {
+        b.classList.remove('on');
+        b.setAttribute('aria-pressed', 'false');
+    });
     activeBtn.classList.add('on');
+    activeBtn.setAttribute('aria-pressed', 'true');
 }
 /**
  * カテゴリでカードを絞り込む（単一責任）

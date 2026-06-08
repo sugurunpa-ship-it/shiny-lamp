@@ -24,13 +24,18 @@ function setCardVisibility(card: HTMLElement, visible: boolean): void {
 
 /**
  * フィルターボタンのアクティブ状態を更新する（単一責任）
+ * aria-pressed を同期して支援技術（スクリーンリーダー等）に現在状態を通知する
  */
 function updateFilterButtons(
   buttons: NodeListOf<HTMLButtonElement>,
   activeBtn: HTMLButtonElement
 ): void {
-  buttons.forEach(b => b.classList.remove('on'))
+  buttons.forEach(b => {
+    b.classList.remove('on')
+    b.setAttribute('aria-pressed', 'false')
+  })
   activeBtn.classList.add('on')
+  activeBtn.setAttribute('aria-pressed', 'true')
 }
 
 /**

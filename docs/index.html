@@ -11,6 +11,8 @@
 <meta property="og:url" content="https://sugurunpa-ship-it.github.io/shiny-lamp/">
 <meta name="theme-color" content="#0f0f0f">
 <meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<meta property="og:image:alt" content="Antigravity IDE — AIで開発を自動化する開発者のポートフォリオ">
 <meta http-equiv="Content-Security-Policy"
       content="default-src 'self';
                style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
@@ -30,6 +32,9 @@
    DESIGN SYSTEM — toyota-premium-minimal
    Abstracted from: toyota.jp
 ═══════════════════════════════════════════ */
+/* SKIP LINK — キーボードナビゲーション用 */
+.skip-link{position:absolute;top:-100%;left:16px;padding:10px 20px;background:var(--color-red);color:#fff;z-index:99999;border-radius:0 0 4px 4px;font-family:var(--font-b);font-size:1.4rem;font-weight:700;transition:top .2s}
+.skip-link:focus{top:0}
 :root {
   --color-bg:        #ffffff;
   --color-bg-alt:    #f5f5f5;
@@ -199,6 +204,9 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
 </head>
 <body>
 
+<!-- キーボードナビゲーション用スキップリンク（Tab キーで表示） -->
+<a class="skip-link" href="#main-content">コンテンツへスキップ</a>
+
 <!-- NAV -->
 <nav id="main-nav" aria-label="メインナビゲーション">
   <div class="nav-logo">
@@ -211,6 +219,8 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
+
+<main id="main-content">
 
 <!-- HERO -->
 <section id="hero">
@@ -248,10 +258,10 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
       <p class="sec-desc">Claude Code を活用して制作したゲーム・コンテンツ・開発ツールの一覧です。</p>
     </div>
     <div class="filter-bar reveal" role="group" aria-label="カテゴリフィルター">
-      <button class="ftag on" data-f="all">All</button>
-      <button class="ftag" data-f="game">Game</button>
-      <button class="ftag" data-f="tool">Dev Tool</button>
-      <button class="ftag" data-f="cont">Content</button>
+      <button class="ftag on" data-f="all"  aria-pressed="true">All</button>
+      <button class="ftag" data-f="game"    aria-pressed="false">Game</button>
+      <button class="ftag" data-f="tool"    aria-pressed="false">Dev Tool</button>
+      <button class="ftag" data-f="cont"    aria-pressed="false">Content</button>
     </div>
     <div class="works-grid">
       <article class="work-card reveal" data-cat="game">
@@ -335,7 +345,9 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
       <p class="contact-ja">お問い合わせ</p>
       <p class="contact-sub">お仕事のご依頼・コラボレーションはこちらからどうぞ。<br>Claude Code を使った高速開発・業務自動化のご相談もお気軽に。</p>
       <div class="social-row">
+        <!-- TODO: 実際の Twitter/X アカウント URL に変更してください (例: https://twitter.com/yourhandle) -->
         <a class="social-btn" href="https://twitter.com/" aria-label="Twitter/X" target="_blank" rel="noopener noreferrer">𝕏 Twitter/X</a>
+        <!-- TODO: 実際の LinkedIn プロフィール URL に変更してください (例: https://linkedin.com/in/yourname) -->
         <a class="social-btn" href="https://linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
         <a class="social-btn" href="https://github.com/sugurunpa-ship-it" aria-label="GitHub" target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
         <a class="social-btn" href="mailto:sugurunpa@hotmail.com" aria-label="メールを送る">✉️ Email</a>
@@ -343,6 +355,8 @@ footer{background:var(--color-dark);border-top:1px solid var(--color-border-dark
     </div>
   </div>
 </section>
+
+</main><!-- /#main-content -->
 
 <!-- FOOTER -->
 <footer role="contentinfo">
